@@ -15,7 +15,7 @@ import {
     FAQ,
     NotFoundPage,
 } from './pages';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 function App() {
     return (
