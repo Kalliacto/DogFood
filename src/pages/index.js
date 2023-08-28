@@ -1,0 +1,13 @@
+export { About } from './About';
+export { AddProduct } from './AddProduct';
+export { Auth } from './Auth';
+export { Author } from './Author';
+export { Basket } from './Basket';
+export { Delivery } from './Delivery';
+export { Favorites } from './Favorites';
+export { Home } from './Home';
+export { Products } from './Products';
+export { Profile } from './Profile';
+export { SingleProduct } from './SingleProduct';
+export { FAQ } from './FAQ';
+export { NotFoundPage } from './NotFoundPage';
