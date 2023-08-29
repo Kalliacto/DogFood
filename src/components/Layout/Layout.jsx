@@ -1,8 +1,7 @@
 import React from 'react';
 import './Layout.css';
-import Card from '../Card/Card';
 
-const Layout = ({ mb = 1, dt = mb, gap = 'normal' /* none=0||small=2rem||normal= 4rem */ }) => {
+const Layout = ({ mb = 1, dt = mb, gap = 'normal', children }) => {
     let className = 'layout';
 
     switch (mb) {
@@ -44,19 +43,10 @@ const Layout = ({ mb = 1, dt = mb, gap = 'normal' /* none=0||small=2rem||normal=
             className += ' layout_gap-small';
             break;
         default:
-            className += '';
+            className += ' layout_gap-normal';
     }
 
-    return (
-        <div className={className}>
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-        </div>
-    );
+    return <div className={className}>{children}</div>;
 };
 
 export default Layout;
