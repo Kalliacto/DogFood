@@ -7,7 +7,6 @@ import {
     Author,
     Basket,
     Delivery,
-    Favorites,
     Home,
     Products,
     Profile,
