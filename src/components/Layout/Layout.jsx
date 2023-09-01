@@ -1,7 +1,7 @@
 import React from 'react';
 import './Layout.css';
 
-const Layout = ({ mb = 1, dt = mb, gap = 'normal', children }) => {
+const Layout = ({ mb = 1, dt = mb, gap = 'normal', children, title = false }) => {
     let className = 'layout';
 
     switch (mb) {
@@ -46,7 +46,16 @@ const Layout = ({ mb = 1, dt = mb, gap = 'normal', children }) => {
             className += ' layout_gap-normal';
     }
 
-    return <div className={className}>{children}</div>;
+    return (
+        <div className={className}>
+            {title && (
+                <h2 className={`layout__title layout__title_${mb} layout__title_dt-${dt}`}>
+                    {title}
+                </h2>
+            )}
+            {children}
+        </div>
+    );
 };
 
 export default Layout;

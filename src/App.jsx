@@ -16,8 +16,23 @@ import {
 } from './pages';
 import { NavLink } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllNews, getAllNewsLenta } from './store/slices/newsSlice';
 
 function App() {
+    const { news, newsLenta } = useSelector((s) => s.news);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (!news.length) {
+            dispatch(getAllNews());
+        }
+        if (!newsLenta?.length) {
+            dispatch(getAllNewsLenta());
+        }
+    }, [dispatch, news, newsLenta]);
+
     return (
         <>
             <Layout>
