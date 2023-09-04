@@ -1,15 +1,16 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getNews, getNewsLenta } from '../../utils/api';
 
-const news = localStorage.getItem('news') ? JSON.parse(localStorage.getItem('news')) : [];
-const newsLenta = localStorage.getItem('newsLenta')
-    ? JSON.parse(localStorage.getItem('newsLenta'))
-    : [];
+// const news = localStorage.getItem('news') ? JSON.parse(localStorage.getItem('news')) : [];
+// const newsLenta = localStorage.getItem('newsLenta')
+//     ? JSON.parse(localStorage.getItem('newsLenta'))
+//     : [];
 
 const initialState = {
-    news,
-    newsLenta,
-    newsList: [],
+    news: [],
+    newsLenta: [],
+    staticNews: [],
+    staticNewsLenta: [],
 };
 
 export const getAllNews = createAsyncThunk(
@@ -39,15 +40,22 @@ export const getAllNewsLenta = createAsyncThunk(
 const newsSlice = createSlice({
     name: 'news',
     initialState,
-    reducers: {},
+    reducers: {
+        getStaticNews: (state, action) => {
+            state.staticNews = action.payload;
+        },
+        getStaticNewsLenta: (state, action) => {
+            state.staticNewsLenta = action.payload;
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(getAllNews.fulfilled, (state, { payload }) => {
             state.news = payload.articles.filter((el) => el.source.name === 'Techinsider.ru');
-            localStorage.setItem('news', JSON.stringify(state.news));
+            // localStorage.setItem('news', JSON.stringify(state.news));
         });
         builder.addCase(getAllNewsLenta.fulfilled, (state, { payload }) => {
             state.newsLenta = payload.articles;
-            localStorage.setItem('newsLenta', JSON.stringify(state.newsLenta));
+            // localStorage.setItem('newsLenta', JSON.stringify(state.newsLenta));
         });
 
         // builder.addMatcher(isPending(getAllNews), (state, action) => {
@@ -59,4 +67,5 @@ const newsSlice = createSlice({
     },
 });
 
+export const { getStaticNews, getStaticNewsLenta } = newsSlice.actions;
 export default newsSlice.reducer;

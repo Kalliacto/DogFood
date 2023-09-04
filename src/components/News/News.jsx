@@ -2,7 +2,6 @@ import React from 'react';
 import './News.css';
 
 const News = ({ data, isTitled = false }) => {
-    console.log(data.title);
     return (
         <div className='news_container'>
             <a target='_blank' href={data.url} rel='noreferrer' className='news'>

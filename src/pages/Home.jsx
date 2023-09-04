@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '../components/Layout/Layout';
 import bannersData from '../assets/data/banners.json';
 import addsData from '../assets/data/adds.json';
@@ -7,9 +7,20 @@ import Adds from '../components/Adds/Adds';
 import { useSelector } from 'react-redux';
 import News from '../components/News/News';
 import Carousel from '../components/Carousel/Carousel';
+import Preloader from '../components/Preloader/Preloader';
 
 const Home = () => {
-    const { news, newsLenta } = useSelector((s) => s.news);
+    const { news, newsLenta, staticNews, staticNewsLenta } = useSelector((s) => s.news);
+    const [mainNews, setMainNews] = useState([]);
+    const [mainNewsLenta, setMainNewsLenta] = useState([]);
+
+    console.log('mainNews', mainNews);
+    console.log('mainNewsLenta', mainNewsLenta);
+
+    useEffect(() => {
+        !!news?.length ? setMainNews(news) : setMainNews(staticNews);
+        !!newsLenta?.length ? setMainNewsLenta(newsLenta) : setMainNewsLenta(staticNewsLenta);
+    }, [news, newsLenta]);
 
     return (
         <>
@@ -17,30 +28,35 @@ const Home = () => {
             <Layout>
                 <Adds {...addsData[0]} />
             </Layout>
-            <Layout mb={2} dt={4} title={'Последние новости о пёселях'}>
-                {!!news.length && (
+            {console.log('mainNews?.length', !!mainNews?.length)}
+            {!!mainNews?.length ? (
+                <Layout mb={2} dt={4} title={'Последние новости о пёселях'}>
                     <Carousel
-                        data={news.map((el, i) => (
+                        data={mainNews.map((el, i) => (
                             <News key={`news=${i}`} data={el} isTitled={true} />
                         ))}
                         cnt={window.innerWidth < 1064 ? 2 : 4}
                     />
-                )}
-            </Layout>
+                </Layout>
+            ) : (
+                <Preloader />
+            )}
             <Layout dt={2}>
                 <Adds {...addsData[1]} />
                 <Adds {...addsData[2]} />
             </Layout>
-            <Layout mb={1} dt={2} title={'Новосте пёселей Lenta.ru'}>
-                {!!newsLenta.length && (
+            {!!mainNewsLenta?.length ? (
+                <Layout mb={1} dt={2} title={'Новосте пёселей Lenta.ru'}>
                     <Carousel
-                        data={newsLenta.map((el, i) => (
+                        data={mainNewsLenta.map((el, i) => (
                             <News key={`news=${i}`} data={el} />
                         ))}
                         cnt={window.innerWidth < 1064 ? 1 : 2}
                     />
-                )}
-            </Layout>
+                </Layout>
+            ) : (
+                <Preloader />
+            )}
         </>
     );
 };

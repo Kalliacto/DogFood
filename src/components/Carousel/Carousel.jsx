@@ -14,7 +14,7 @@ const Carousel = ({ data, cnt = 4, time = 7000 }) => {
         return () => clearTimeout(timer);
     });
 
-    return <> {items.filter((el, i) => i < cnt)}</>;
+    return <>{items.filter((el, i) => i < cnt)}</>;
 };
 
 export default Carousel;
