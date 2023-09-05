@@ -17,7 +17,7 @@ import {
 import { NavLink } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
     getAllNews,
     getAllNewsLenta,
@@ -28,19 +28,24 @@ import staticNews from './assets/data/news.json';
 import staticNewsLenta from './assets/data/newslenta.json';
 
 function App() {
+    const { news, newsLenta } = useSelector((s) => s.news);
     const dispatch = useDispatch();
 
     useEffect(() => {
         if (process.env.NODE_ENV === 'development') {
-            dispatch(getAllNews());
-            dispatch(getAllNewsLenta());
+            if (!news.length) {
+                dispatch(getAllNews());
+            }
+            if (!newsLenta?.length) {
+                dispatch(getAllNewsLenta());
+            }
         }
 
         if (process.env.NODE_ENV === 'production') {
             dispatch(getStaticNews(staticNews));
             dispatch(getStaticNewsLenta(staticNewsLenta));
         }
-    }, [dispatch]);
+    }, [dispatch, news, newsLenta]);
 
     return (
         <>

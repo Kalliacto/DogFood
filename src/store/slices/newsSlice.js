@@ -1,16 +1,17 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, isPending, isRejected } from '@reduxjs/toolkit';
 import { getNews, getNewsLenta } from '../../utils/api';
 
-// const news = localStorage.getItem('news') ? JSON.parse(localStorage.getItem('news')) : [];
-// const newsLenta = localStorage.getItem('newsLenta')
-//     ? JSON.parse(localStorage.getItem('newsLenta'))
-//     : [];
+const news = sessionStorage.getItem('dogs-news')
+    ? JSON.parse(sessionStorage.getItem('dogs-news'))
+    : [];
+const newsLenta = sessionStorage.getItem('dogs-newsLenta')
+    ? JSON.parse(sessionStorage.getItem('dogs-newsLenta'))
+    : [];
 
 const initialState = {
-    news: [],
-    newsLenta: [],
-    staticNews: [],
-    staticNewsLenta: [],
+    news,
+    newsLenta,
+    isLoading: false,
 };
 
 export const getAllNews = createAsyncThunk(
@@ -42,28 +43,32 @@ const newsSlice = createSlice({
     initialState,
     reducers: {
         getStaticNews: (state, action) => {
-            state.staticNews = action.payload;
+            state.isLoading = false;
+            state.news = action.payload;
         },
         getStaticNewsLenta: (state, action) => {
-            state.staticNewsLenta = action.payload;
+            state.isLoading = false;
+            state.newsLenta = action.payload;
         },
     },
     extraReducers: (builder) => {
         builder.addCase(getAllNews.fulfilled, (state, { payload }) => {
+            state.isLoading = false;
             state.news = payload.articles.filter((el) => el.source.name === 'Techinsider.ru');
-            // localStorage.setItem('news', JSON.stringify(state.news));
+            sessionStorage.setItem('dogs-news', JSON.stringify(state.news));
         });
         builder.addCase(getAllNewsLenta.fulfilled, (state, { payload }) => {
+            state.isLoading = false;
             state.newsLenta = payload.articles;
-            // localStorage.setItem('newsLenta', JSON.stringify(state.newsLenta));
+            sessionStorage.setItem('dogs-newsLenta', JSON.stringify(state.newsLenta));
         });
 
-        // builder.addMatcher(isPending(getAllNews), (state, action) => {
-
-        // });
-        // builder.addMatcher(isRejected(getAllNews), (state, action) => {
-
-        // });
+        builder.addMatcher(isPending(getAllNews), (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addMatcher(isRejected(getAllNews), (state, action) => {
+            state.isLoading = false;
+        });
     },
 });
 

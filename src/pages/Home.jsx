@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Layout from '../components/Layout/Layout';
 import bannersData from '../assets/data/banners.json';
 import addsData from '../assets/data/adds.json';
@@ -10,17 +10,7 @@ import Carousel from '../components/Carousel/Carousel';
 import Preloader from '../components/Preloader/Preloader';
 
 const Home = () => {
-    const { news, newsLenta, staticNews, staticNewsLenta } = useSelector((s) => s.news);
-    const [mainNews, setMainNews] = useState([]);
-    const [mainNewsLenta, setMainNewsLenta] = useState([]);
-
-    console.log('mainNews', mainNews);
-    console.log('mainNewsLenta', mainNewsLenta);
-
-    useEffect(() => {
-        !!news?.length ? setMainNews(news) : setMainNews(staticNews);
-        !!newsLenta?.length ? setMainNewsLenta(newsLenta) : setMainNewsLenta(staticNewsLenta);
-    }, [news, newsLenta]);
+    const { news, newsLenta, isLoading } = useSelector((s) => s.news);
 
     return (
         <>
@@ -28,11 +18,11 @@ const Home = () => {
             <Layout>
                 <Adds {...addsData[0]} />
             </Layout>
-            {console.log('mainNews?.length', !!mainNews?.length)}
-            {!!mainNews?.length ? (
+
+            {!isLoading ? (
                 <Layout mb={2} dt={4} title={'Последние новости о пёселях'}>
                     <Carousel
-                        data={mainNews.map((el, i) => (
+                        data={news.map((el, i) => (
                             <News key={`news=${i}`} data={el} isTitled={true} />
                         ))}
                         cnt={window.innerWidth < 1064 ? 2 : 4}
@@ -45,10 +35,10 @@ const Home = () => {
                 <Adds {...addsData[1]} />
                 <Adds {...addsData[2]} />
             </Layout>
-            {!!mainNewsLenta?.length ? (
+            {!isLoading ? (
                 <Layout mb={1} dt={2} title={'Новосте пёселей Lenta.ru'}>
                     <Carousel
-                        data={mainNewsLenta.map((el, i) => (
+                        data={newsLenta.map((el, i) => (
                             <News key={`news=${i}`} data={el} />
                         ))}
                         cnt={window.innerWidth < 1064 ? 1 : 2}
