@@ -8,9 +8,11 @@ import { useSelector } from 'react-redux';
 import News from '../components/News/News';
 import Carousel from '../components/Carousel/Carousel';
 import Preloader from '../components/Preloader/Preloader';
+import goodsData from '../assets/data/goods.json';
+import Card from '../components/Card/Card';
 
 const Home = () => {
-    const { news, newsLenta, isLoading } = useSelector((s) => s.news);
+    const { news, newsLenta } = useSelector((s) => s.news);
 
     return (
         <>
@@ -18,8 +20,14 @@ const Home = () => {
             <Layout>
                 <Adds {...addsData[0]} />
             </Layout>
-
-            {!isLoading ? (
+            {goodsData.length && (
+                <Layout mb={2} dt={4} title='Наши новинки'>
+                    {goodsData.map((el) => {
+                        return <Card key={el._id} {...el} />;
+                    })}
+                </Layout>
+            )}
+            {!!news?.length ? (
                 <Layout mb={2} dt={4} title={'Последние новости о пёселях'}>
                     <Carousel
                         data={news.map((el, i) => (
@@ -35,7 +43,14 @@ const Home = () => {
                 <Adds {...addsData[1]} />
                 <Adds {...addsData[2]} />
             </Layout>
-            {!isLoading ? (
+            {goodsData.length && (
+                <Layout mb={2} dt={4} title='Популярные товары'>
+                    {goodsData.map((el) => {
+                        return <Card key={el._id} {...el} />;
+                    })}
+                </Layout>
+            )}
+            {!!newsLenta?.length ? (
                 <Layout mb={1} dt={2} title={'Новосте пёселей Lenta.ru'}>
                     <Carousel
                         data={newsLenta.map((el, i) => (
@@ -47,6 +62,16 @@ const Home = () => {
             ) : (
                 <Preloader />
             )}
+            {goodsData.length && (
+                <Layout mb={2} dt={4} title='Недавно просмотренные'>
+                    {goodsData.map((el) => {
+                        return <Card key={el._id} {...el} />;
+                    })}
+                </Layout>
+            )}
+            <Layout>
+                <Adds {...addsData[5]} />
+            </Layout>
         </>
     );
 };

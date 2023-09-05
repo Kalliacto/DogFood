@@ -28,3 +28,8 @@ https://newsapi.org/
         Life.ru
         Picabu
         Lenta.ru
+
+API
+https://api.react-learning.ru/api-docs/
+Старое API
+https://nutritious-windflower-27f.notion.site/API-f359059dee014b448955eab8c5b13062
