@@ -58,3 +58,7 @@ ul {
     box-shadow: 0 1px 5px 0 #004;
     visibility: hidden;
 }
+
+button {
+    cursor: pointer;
+}

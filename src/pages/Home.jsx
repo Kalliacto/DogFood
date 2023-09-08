@@ -10,9 +10,21 @@ import Carousel from '../components/Carousel/Carousel';
 import Preloader from '../components/Preloader/Preloader';
 import goodsData from '../assets/data/goods.json';
 import Card from '../components/Card/Card';
+import { useState, useEffect } from 'react';
 
 const Home = () => {
     const { news, newsLenta } = useSelector((s) => s.news);
+    const [width, setWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        const handleResize = (event) => {
+            setWidth(event.target.innerWidth);
+        };
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     return (
         <>
@@ -33,7 +45,7 @@ const Home = () => {
                         data={news.map((el, i) => (
                             <News key={`news=${i}`} data={el} isTitled={true} />
                         ))}
-                        cnt={window.innerWidth < 1064 ? 2 : 4}
+                        cnt={width < 1064 ? 2 : 4}
                     />
                 </Layout>
             ) : (
@@ -51,12 +63,12 @@ const Home = () => {
                 </Layout>
             )}
             {!!newsLenta?.length ? (
-                <Layout mb={1} dt={2} title={'Новосте пёселей Lenta.ru'}>
+                <Layout mb={1} dt={2} title={'Новости пёселей Lenta.ru'}>
                     <Carousel
                         data={newsLenta.map((el, i) => (
                             <News key={`news=${i}`} data={el} />
                         ))}
-                        cnt={window.innerWidth < 1064 ? 1 : 2}
+                        cnt={width < 1064 ? 1 : 2}
                     />
                 </Layout>
             ) : (
