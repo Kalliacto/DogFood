@@ -110,7 +110,7 @@
 .card__info .lni {
     font-size: 1em;
 }
-/*.card__discount {
+.card__discount {
     position: absolute;
     top: 2rem;
     right: 3rem;
@@ -150,4 +150,4 @@
     align-items: center;
     font-size: 4rem;
     transform: rotate(45deg);
-} */
+}

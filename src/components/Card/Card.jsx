@@ -24,7 +24,9 @@ const Card = ({ ...props }) => {
     const [inBasket, setInBasket] = useState(false);
     const navigate = useNavigate();
     const tag = tags[tags.length - 1];
-    const rate = reviews.reduce((acc, value) => Math.round(acc + value.rating / reviews.length), 0);
+    const rate = (
+        reviews.reduce((acc, value) => Math.round(acc + value.rating), 0) / reviews.length
+    ).toFixed(1);
 
     const tagHandler = (e) => {
         e.preventDefault();
@@ -57,8 +59,32 @@ const Card = ({ ...props }) => {
                     <span className='card__title'>
                         {name.length >= 40 ? name.slice(0, 40) + '...' : name}
                     </span>
-                    <span className='card__rate'>{rate}</span>
-                    <span className='card__price'>{price}</span>
+                    <span className='card__info'>
+                        {rate ? (
+                            <span className='card__rate'>
+                                <i className='lni lni-star-fill' /> {rate}
+                            </span>
+                        ) : (
+                            <span className='card__rate card__rate_empty'>
+                                <i className='lni lni-star-fill' />
+                            </span>
+                        )}
+
+                        {/* TODO: Предусмотреть фун-ю склонения окончания слова */}
+                        <span className='card__review'>
+                            {reviews?.length ? reviews?.length + ' отзыва' : 'Нет отзывов'}
+                        </span>
+                    </span>
+                    <span className='card__price'>
+                        {discount ? (
+                            <>
+                                {Math.ceil(price * ((100 + discount) / 100))} ₽
+                                <del className='card__price_discount'>{price} ₽</del>
+                            </>
+                        ) : (
+                            <span>{price} ₽</span>
+                        )}
+                    </span>
                 </span>
             </Link>
             <span className='card__buttons'>

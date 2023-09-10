@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Layout from '../components/Layout/Layout';
 import bannersData from '../assets/data/banners.json';
 import addsData from '../assets/data/adds.json';
@@ -15,6 +15,17 @@ import { useState, useEffect } from 'react';
 const Home = () => {
     const { news, newsLenta } = useSelector((s) => s.news);
     const [width, setWidth] = useState(window.innerWidth);
+    const favGoods = goodsData
+        .filter((el) => el.reviews.length > 0)
+        .sort((a, b) => {
+            const sumA = a.reviews.reduce((acc, value) => acc + value.rating, 0) / a.reviews.length;
+            const sumB = b.reviews.reduce((acc, value) => acc + value.rating, 0) / b.reviews.length;
+            return sumB - sumA;
+        });
+
+    const newGoods = [...goodsData].sort((a, b) => {
+        return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+    });
 
     useEffect(() => {
         const handleResize = (event) => {
@@ -32,9 +43,9 @@ const Home = () => {
             <Layout>
                 <Adds {...addsData[0]} />
             </Layout>
-            {goodsData.length && (
+            {newGoods.length && (
                 <Layout mb={2} dt={4} title='Наши новинки'>
-                    {goodsData.map((el) => {
+                    {newGoods.map((el) => {
                         return <Card key={el._id} {...el} />;
                     })}
                 </Layout>
@@ -55,9 +66,9 @@ const Home = () => {
                 <Adds {...addsData[1]} />
                 <Adds {...addsData[2]} />
             </Layout>
-            {goodsData.length && (
+            {favGoods.length && (
                 <Layout mb={2} dt={4} title='Популярные товары'>
-                    {goodsData.map((el) => {
+                    {favGoods.map((el) => {
                         return <Card key={el._id} {...el} />;
                     })}
                 </Layout>
@@ -75,6 +86,7 @@ const Home = () => {
                 <Preloader />
             )}
             {goodsData.length && (
+                // TODO: Сделать фильтрацию просмотренного
                 <Layout mb={2} dt={4} title='Недавно просмотренные'>
                     {goodsData.map((el) => {
                         return <Card key={el._id} {...el} />;
