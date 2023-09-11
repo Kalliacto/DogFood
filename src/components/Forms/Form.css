@@ -1,0 +1,76 @@
+.form__row {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form__row_search {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+}
+
+.form__lbl {
+    color: gray;
+}
+.form__lbl_req {
+    color: crimson;
+}
+
+.form__inp {
+    border: 1px solid silver;
+    outline: none;
+    padding: 1rem 1.5rem;
+    font-family: inherit;
+    font-size: inherit;
+    border-radius: 1rem;
+    width: 100%;
+    background-color: inherit;
+}
+.form__inp:focus {
+    box-shadow: 0 0 2px 0 silver;
+}
+.form__select {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: white;
+    overflow: hidden;
+}
+.form__select::after {
+    font-family: 'lineicons', sans-serif;
+    content: '\eb11';
+    color: silver;
+    position: absolute;
+    background-color: inherit;
+    width: max-content;
+    height: 100%;
+    display: block;
+    display: flex;
+    align-items: center;
+    padding-right: 1.5rem;
+    right: 0;
+    box-sizing: border-box;
+    border: 1px solid silver;
+    border-radius: 0 1rem 1rem 0;
+    border-left-style: none;
+}
+
+.form__text {
+    resize: vertical;
+}
+
+.form__icon {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 1.5rem;
+    color: silver;
+}

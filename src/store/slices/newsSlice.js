@@ -54,7 +54,8 @@ const newsSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(getAllNews.fulfilled, (state, { payload }) => {
             state.isLoading = false;
-            state.news = payload.articles.filter((el) => el.source.name === 'Techinsider.ru');
+            state.news = payload.articles?.filter((el) => el.source.name === 'Techinsider.ru');
+
             sessionStorage.setItem('dogs-news', JSON.stringify(state.news));
         });
         builder.addCase(getAllNewsLenta.fulfilled, (state, { payload }) => {
