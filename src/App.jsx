@@ -7,7 +7,6 @@ import {
     Author,
     Basket,
     Delivery,
-    Favorites,
     Home,
     Products,
     Profile,
@@ -16,51 +15,83 @@ import {
     NotFoundPage,
 } from './pages';
 import { NavLink } from 'react-router-dom';
+import Layout from './components/Layout/Layout';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    getAllNews,
+    getAllNewsLenta,
+    getStaticNews,
+    getStaticNewsLenta,
+} from './store/slices/newsSlice';
+import staticNews from './assets/data/news.json';
+import staticNewsLenta from './assets/data/newslenta.json';
 
 function App() {
+    const { news, newsLenta } = useSelector((s) => s.news);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (process.env.NODE_ENV === 'development') {
+            if (!news.length) {
+                dispatch(getAllNews());
+            }
+            if (!newsLenta?.length) {
+                dispatch(getAllNewsLenta());
+            }
+        }
+
+        if (process.env.NODE_ENV === 'production') {
+            dispatch(getStaticNews(staticNews));
+            dispatch(getStaticNewsLenta(staticNewsLenta));
+        }
+    }, [dispatch, news, newsLenta]);
+
     return (
         <>
-            <ul className='menu'>
-                <li>
-                    <NavLink to={'/'}>Главная</NavLink>
-                </li>
-                <li>
-                    <NavLink to={'/products'}>Каталог</NavLink>
-                    <ul>
-                        <li>
-                            <NavLink to={'/products/category/delicious'}>Лакомства</NavLink>
-                        </li>
-                        <li>
-                            <NavLink to={'/products/category/toys'}>Игрушки</NavLink>
-                        </li>
-                        <li>
-                            <NavLink to={'/products/favorites'}>Любимые товары</NavLink>
-                        </li>
-                    </ul>
-                </li>
+            <Layout>
+                <ul className='menu'>
+                    <li>
+                        <NavLink to={'/'}>Главная</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to={'/products'}>Каталог</NavLink>
+                        <ul>
+                            <li>
+                                <NavLink to={'/products/category/delicious'}>Лакомства</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to={'/products/category/toys'}>Игрушки</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to={'/products/favorites'}>Любимые товары</NavLink>
+                            </li>
+                        </ul>
+                    </li>
 
-                <li>
-                    <NavLink to={'/product/ball'}>Мячик для собак</NavLink>
-                </li>
-                <li>
-                    <NavLink to={'/product/add'}>Добавить товар</NavLink>
-                </li>
-                <li>
-                    <NavLink to={'/basket'}>Корзина </NavLink>
-                </li>
-                <li>
-                    <NavLink to={'/profile'}>Профиль</NavLink>
-                </li>
-                <li>
-                    <NavLink to={'/auth'}>Войти</NavLink>
-                </li>
-                <li>
-                    <NavLink to={'/delivery'}>Доставка</NavLink>
-                </li>
-                <li>
-                    <NavLink to={'/about'}>О нас</NavLink>
-                </li>
-            </ul>
+                    <li>
+                        <NavLink to={'/product/ball'}>Мячик для собак</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to={'/product/add'}>Добавить товар</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to={'/basket'}>Корзина </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to={'/profile'}>Профиль</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to={'/auth'}>Войти</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to={'/delivery'}>Доставка</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to={'/about'}>О нас</NavLink>
+                    </li>
+                </ul>
+            </Layout>
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/products' element={<Products />} />
