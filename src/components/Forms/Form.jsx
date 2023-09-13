@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Input from './fields/Input';
 import Search from './Search';
 import Select from './fields/Select';
@@ -7,17 +7,18 @@ import Image from './fields/Image';
 import formData from '../../assets/data/form.json';
 import './Form.css';
 import useFormState from '../../hooks/useFormState';
+import Password from './fields/Password';
 
 // TODO: компонент с чекбокс
 // TODO: компонент с тегами
-// TODO: компонент для проверки пароля
 
-const Form = () => {
+const Form = ({ compareRwd = false }) => {
     const type = 'user';
-    const names = ['email', 'name', 'about', 'avatar', 'password', 'passwordAccept'];
+    const names = ['email', 'name', 'about', 'avatar', 'password'];
     // const type = 'product';
     // const names = ['name', 'price', 'discount', 'pictures', 'description'];
     const states = useFormState(type)();
+    const [similarPwd, setSimilarPwd] = useState(false);
 
     const handlerSubmit = (e) => {
         e.preventDefault();
@@ -39,14 +40,27 @@ const Form = () => {
                         return <Select key={el} name={el} {...elData} state={states[el]} />;
                     case 'image':
                         return <Image key={el} name={el} {...elData} state={states[el]} />;
+                    case 'password':
+                        return (
+                            <Password
+                                key={el}
+                                name={el}
+                                {...elData}
+                                state={states[el]}
+                                compare={true}
+                                setSimilar={setSimilarPwd}
+                            />
+                        );
                     default:
                         return <Input key={el} name={el} {...elData} state={states[el]} />;
                 }
             })}
-            <button type='submit'>Отправить</button>
+            <button type='submit' disabled={!similarPwd}>
+                Отправить
+            </button>
         </form>
     );
 };
 
-export { Input, Search, Select, Textarea };
+export { Input, Search, Select, Textarea, Image, Password };
 export default Form;

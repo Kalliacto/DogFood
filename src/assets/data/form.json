@@ -29,16 +29,8 @@
             }
         },
         "password": {
-            "format": "input",
+            "format": "password",
             "label": "Ваш пароль",
-            "attr": {
-                "type": "password",
-                "required": true
-            }
-        },
-        "passwordAccept": {
-            "format": "input",
-            "label": "Повторите пароль",
             "attr": {
                 "type": "password",
                 "required": true

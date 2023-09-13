@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../components/Layout/Layout';
-import Form, { Search } from '../components/Forms/Form';
+import Form from '../components/Forms/Form';
 
 const Auth = (props) => {
     return (
@@ -9,7 +9,6 @@ const Auth = (props) => {
             <div style={{ width: '400px' }}>
                 <Form />
             </div>
-            <Search />
         </Layout>
     );
 };
