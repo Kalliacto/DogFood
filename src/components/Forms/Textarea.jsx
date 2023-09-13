@@ -1,7 +1,7 @@
 import React from 'react';
 import './Form.css';
 
-const Textarea = ({ name, label, attr }) => {
+const Textarea = ({ name, label, attr, state }) => {
     return (
         <div className='form__row'>
             <label className='form__lbl' htmlFor={name}>
@@ -12,7 +12,14 @@ const Textarea = ({ name, label, attr }) => {
                     </>
                 )}
             </label>
-            <textarea rows={3} className='form__inp form__text' id={name} {...attr} />
+            <textarea
+                rows={3}
+                className='form__inp form__text'
+                id={name}
+                {...attr}
+                value={state[0]}
+                onChange={(e) => state[1](e.target.value)}
+            />
         </div>
     );
 };

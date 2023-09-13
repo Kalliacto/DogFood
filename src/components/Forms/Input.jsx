@@ -1,7 +1,7 @@
 import React from 'react';
 import './Form.css';
 
-const Input = ({ name, label, attr }) => {
+const Input = ({ name, label, attr, state }) => {
     return (
         <div className='form__row'>
             <label className='form__lbl' htmlFor={name}>
@@ -12,7 +12,13 @@ const Input = ({ name, label, attr }) => {
                     </>
                 )}
             </label>
-            <input className='form__inp' id={name} {...attr} />
+            <input
+                className='form__inp'
+                id={name}
+                {...attr}
+                value={state[0]}
+                onChange={(e) => state[1](e.target.value)}
+            />
         </div>
     );
 };
