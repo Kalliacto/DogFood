@@ -38,3 +38,5 @@ https://nutritious-windflower-27f.notion.site/API-f359059dee014b448955eab8c5b130
 https://www.npmjs.com/package/simple-line-icons
 https://www.npmjs.com/package/lineicons
 https://lineicons.com/icons/
+
+дэфолтная картинка <a href="https://www.flaticon.com/free-icons/picture" title="picture icons">Picture icons created by Payungkead - Flaticon</a>

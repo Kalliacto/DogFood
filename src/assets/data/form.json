@@ -13,7 +13,8 @@
             "label": "Информация о себе"
         },
         "avatar": {
-            "format": "input",
+            "format": "image",
+            "position": "right",
             "label": "Фото профиля",
             "attr": {
                 "type": "link"
@@ -115,7 +116,8 @@
             }
         },
         "pictures": {
-            "format": "input",
+            "format": "image",
+            "position": "top",
             "label": "Изображение",
             "attr": {
                 "type": "link",

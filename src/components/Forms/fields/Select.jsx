@@ -1,5 +1,5 @@
 import React from 'react';
-import './Form.css';
+import '../Form.css';
 
 const Select = ({ name, label, attr, options, state }) => {
     return (
@@ -14,7 +14,7 @@ const Select = ({ name, label, attr, options, state }) => {
             </label>
             <div className='form__select'>
                 <select
-                    className='form__inp '
+                    className='form__inp'
                     id={name}
                     {...attr}
                     value={state[0]}

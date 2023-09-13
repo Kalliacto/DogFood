@@ -1,5 +1,5 @@
 import React from 'react';
-import './Form.css';
+import '../Form.css';
 
 const Textarea = ({ name, label, attr, state }) => {
     return (
