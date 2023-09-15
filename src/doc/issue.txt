@@ -16,3 +16,26 @@
         - информация о магазине
         - FAQ
 
+Элементы формы:
+    Пользователь:
+        name - text
+        about - textarea
+        avatar - link
+        email - email
+        password - password
+    Товар:
+        name - text
+        price - number
+        discount - select
+        stock - number
+        available ? isPublished - checkbox
+        wight - text
+        description - textarea
+        pictures - link
+    Отзыв:
+        name - text
+        city - text
+        text - textarea
+        rating - number
+    Поиск:
+        text / search

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import Layout from '../components/Layout/Layout';
 import bannersData from '../assets/data/banners.json';
 import addsData from '../assets/data/adds.json';
@@ -10,11 +10,11 @@ import Carousel from '../components/Carousel/Carousel';
 import Preloader from '../components/Preloader/Preloader';
 import goodsData from '../assets/data/goods.json';
 import Card from '../components/Card/Card';
-import { useState, useEffect } from 'react';
+import useResize from '../hooks/useResize';
 
 const Home = () => {
+    const screenWidth = useResize(window.innerWidth);
     const { news, newsLenta } = useSelector((s) => s.news);
-    const [width, setWidth] = useState(window.innerWidth);
     const favGoods = goodsData
         .filter((el) => el.reviews.length > 0)
         .sort((a, b) => {
@@ -26,16 +26,6 @@ const Home = () => {
     const newGoods = [...goodsData].sort((a, b) => {
         return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
     });
-
-    useEffect(() => {
-        const handleResize = (event) => {
-            setWidth(event.target.innerWidth);
-        };
-        window.addEventListener('resize', handleResize);
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
 
     return (
         <>
@@ -56,7 +46,7 @@ const Home = () => {
                         data={news.map((el, i) => (
                             <News key={`news=${i}`} data={el} isTitled={true} />
                         ))}
-                        cnt={width < 1064 ? 2 : 4}
+                        cnt={screenWidth < 1064 ? 2 : 4}
                     />
                 </Layout>
             ) : (
@@ -79,7 +69,7 @@ const Home = () => {
                         data={newsLenta.map((el, i) => (
                             <News key={`news=${i}`} data={el} />
                         ))}
-                        cnt={width < 1064 ? 1 : 2}
+                        cnt={screenWidth < 1064 ? 1 : 2}
                     />
                 </Layout>
             ) : (
