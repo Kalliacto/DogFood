@@ -16,7 +16,7 @@ import {
 } from './pages';
 import { NavLink } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     getAllNews,
@@ -26,10 +26,20 @@ import {
 } from './store/slices/newsSlice';
 import staticNews from './assets/data/news.json';
 import staticNewsLenta from './assets/data/newslenta.json';
+import Api from './utils/api';
 
 function App() {
     const { news, newsLenta } = useSelector((s) => s.news);
+    const [token, setToken] = useState(
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDBjNGYzODRlZTQxOTk3NWZiZDMwMWUiLCJncm91cCI6Imdyb3VwLTExIiwiaWF0IjoxNjc4NTI4MzI3LCJleHAiOjE3MTAwNjQzMjd9.hFwIhkSYXini5j5J0pyysePPmwOSy0SsvtxB-B6ocCQ'
+    );
+    const [userId, setUserId] = useState(localStorage.getItem('user-id'));
+    const [api, setApi] = useState(new Api(token));
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        setApi(new Api(token));
+    }, [token]);
 
     useEffect(() => {
         if (process.env.NODE_ENV === 'development') {
