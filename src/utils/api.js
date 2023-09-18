@@ -52,6 +52,75 @@ class Api {
             headers: this.setHeaders(),
         }).then((res) => this.checkRes(res));
     }
+
+    searchProducts(query) {
+        return fetch(`${this.path}/products/search?query=${query}`, {
+            headers: this.setHeaders(),
+        }).then((res) => this.checkRes(res));
+    }
+
+    getProduct(id) {
+        return fetch(`${this.path}/products/${id}`, {
+            headers: this.setHeaders(),
+        }).then((res) => this.checkRes(res));
+    }
+
+    addProduct(body) {
+        return fetch(`${this.path}/products`, {
+            method: 'POST',
+            headers: this.setHeaders(true),
+            body: this.setBody(body),
+        }).then((res) => this.checkRes(res));
+    }
+
+    updateProduct(id, body) {
+        return fetch(`${this.path}/products/${id}`, {
+            method: 'PATCH',
+            headers: this.setHeaders(true),
+            body: this.setBody(body),
+        }).then((res) => this.checkRes(res));
+    }
+
+    deleteProduct(id) {
+        return fetch(`${this.path}/products/${id}`, {
+            method: 'DELETE',
+            headers: this.setHeaders(),
+        }).then((res) => this.checkRes(res));
+    }
+
+    setLike(id, isLike) {
+        return fetch(`${this.path}/products/likes/${id}`, {
+            method: isLike ? 'PUT' : 'DELETE',
+            headers: this.setHeaders(),
+        }).then((res) => this.checkRes(res));
+    }
+
+    getAllReviews() {
+        return fetch(`${this.path}/products/review`, {
+            headers: this.setHeaders(),
+        }).then((res) => this.checkRes(res));
+    }
+
+    getReviews(id) {
+        return fetch(`${this.path}/products/review/${id}`, {
+            headers: this.setHeaders(),
+        }).then((res) => this.checkRes(res));
+    }
+
+    addReview(id, body) {
+        return fetch(`${this.path}/products/review/${id}`, {
+            method: 'POST',
+            headers: this.setHeaders(true),
+            body: this.setBody(body),
+        }).then((res) => this.checkRes(res));
+    }
+
+    deleteReview(id, reviewId) {
+        return fetch(`${this.path}/products/review/${id}/${reviewId}`, {
+            method: 'DELETE',
+            headers: this.setHeaders(),
+        }).then((res) => this.checkRes(res));
+    }
 }
 
 export default Api;
