@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import formData from '../../../assets/data/form.json';
 import useFormState from '../../../hooks/useFormState';
 import Input from '../fields/Input';
@@ -7,6 +7,7 @@ import Textarea from '../fields/Textarea';
 import Password from '../fields/Password';
 import Image from '../fields/Image';
 import '../Form.css';
+import { Context } from '../../../context/context';
 
 const AuthForm = ({ fields, btnText, compareRwd = false, cb = () => {} }) => {
     const data = formData.user;
@@ -19,7 +20,6 @@ const AuthForm = ({ fields, btnText, compareRwd = false, cb = () => {} }) => {
         fields.forEach((el) => {
             body[el] = states[el][0];
         });
-        console.log(body);
         cb(body);
     };
 
@@ -43,6 +43,7 @@ const AuthForm = ({ fields, btnText, compareRwd = false, cb = () => {} }) => {
                                 state={states[el]}
                                 compare={true}
                                 setSimilar={setSimilarPwd}
+                                compareRwd={compareRwd}
                             />
                         );
                     default:

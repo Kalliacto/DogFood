@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Card.css';
 import { Link, useNavigate } from 'react-router-dom';
+import { getEndings } from '../../utils/utils';
 
 const Card = ({ ...props }) => {
     const {
@@ -24,9 +25,11 @@ const Card = ({ ...props }) => {
     const [inBasket, setInBasket] = useState(false);
     const navigate = useNavigate();
     const tag = tags[tags.length - 1];
-    const rate = (
-        reviews.reduce((acc, value) => Math.round(acc + value.rating), 0) / reviews.length
-    ).toFixed(1);
+    const rate = reviews?.length
+        ? (
+              reviews.reduce((acc, value) => Math.round(acc + value.rating), 0) / reviews.length
+          ).toFixed(1)
+        : '0';
 
     const tagHandler = (e) => {
         e.preventDefault();
@@ -69,16 +72,16 @@ const Card = ({ ...props }) => {
                                 <i className='lni lni-star-fill' />
                             </span>
                         )}
-
-                        {/* TODO: Предусмотреть фун-ю склонения окончания слова */}
                         <span className='card__review'>
-                            {reviews?.length ? reviews?.length + ' отзыва' : 'Нет отзывов'}
+                            {reviews?.length
+                                ? `${reviews?.length} ${getEndings(reviews?.length, 'отзыв')}`
+                                : 'Нет отзывов'}
                         </span>
                     </span>
                     <span className='card__price'>
                         {discount ? (
                             <>
-                                {Math.ceil(price * ((100 + discount) / 100))} ₽
+                                {Math.ceil(price * ((100 - discount) / 100))} ₽
                                 <del className='card__price_discount'>{price} ₽</del>
                             </>
                         ) : (
