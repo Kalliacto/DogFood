@@ -23,7 +23,12 @@ const Form = ({ type, fieldsType, cb = () => {} }) => {
             {type === 'auth' && (
                 <>
                     {fieldsType === 'login' && (
-                        <AuthForm fields={authFields} btnText={'Войти'} cb={cb} />
+                        <AuthForm
+                            fields={authFields}
+                            btnText={'Войти'}
+                            compareRwd={false}
+                            cb={cb}
+                        />
                     )}
                     {fieldsType === 'signup' && (
                         <AuthForm

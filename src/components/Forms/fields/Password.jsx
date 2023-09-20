@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Input from './Input';
 
-const Password = ({ name, label, attr, state, compare = false, setSimilar }) => {
+const Password = ({ name, label, attr, state, compare = false, setSimilar, compareRwd }) => {
     const pwd = useState('');
 
     useEffect(() => {
@@ -13,7 +13,7 @@ const Password = ({ name, label, attr, state, compare = false, setSimilar }) => 
     return (
         <>
             <Input name={name} label={label} attr={attr} state={state} />
-            {compare && (
+            {compareRwd && (
                 <Input
                     name='pwd'
                     label='Повторите пароль'

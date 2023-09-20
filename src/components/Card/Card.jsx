@@ -81,7 +81,7 @@ const Card = ({ ...props }) => {
                     <span className='card__price'>
                         {discount ? (
                             <>
-                                {Math.ceil(price * ((100 + discount) / 100))} ₽
+                                {Math.ceil(price * ((100 - discount) / 100))} ₽
                                 <del className='card__price_discount'>{price} ₽</del>
                             </>
                         ) : (
