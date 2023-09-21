@@ -26,8 +26,10 @@ import {
 } from './store/slices/newsSlice';
 import staticNews from './assets/data/news.json';
 import staticNewsLenta from './assets/data/newslenta.json';
+import menu from './assets/data/menu.json';
 import Api from './utils/api';
 import { Context } from './context/context';
+import Navigate from './components/Navigate/Navigate';
 
 function App() {
     const { news, newsLenta } = useSelector((s) => s.news);
@@ -70,47 +72,7 @@ function App() {
         <>
             <Context.Provider value={value}>
                 <Layout>
-                    <ul className='menu'>
-                        <li>
-                            <NavLink to={'/'}>Главная</NavLink>
-                        </li>
-                        <li>
-                            <NavLink to={'/products'}>Каталог</NavLink>
-                            <ul>
-                                <li>
-                                    <NavLink to={'/products/category/delicious'}>Лакомства</NavLink>
-                                </li>
-                                <li>
-                                    <NavLink to={'/products/category/toys'}>Игрушки</NavLink>
-                                </li>
-                                <li>
-                                    <NavLink to={'/products/favorites'}>Любимые товары</NavLink>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <NavLink to={'/product/ball'}>Мячик для собак</NavLink>
-                        </li>
-                        <li>
-                            <NavLink to={'/product/add'}>Добавить товар</NavLink>
-                        </li>
-                        <li>
-                            <NavLink to={'/basket'}>Корзина </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to={'/profile'}>Профиль</NavLink>
-                        </li>
-                        <li>
-                            <NavLink to={'/auth'}>Войти</NavLink>
-                        </li>
-                        <li>
-                            <NavLink to={'/delivery'}>Доставка</NavLink>
-                        </li>
-                        <li>
-                            <NavLink to={'/about'}>О нас</NavLink>
-                        </li>
-                    </ul>
+                    <Navigate menu={menu.header} />
                 </Layout>
                 <Routes>
                     <Route path='/' element={<Home />} />
