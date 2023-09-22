@@ -14,7 +14,6 @@ import {
     FAQ,
     NotFoundPage,
 } from './pages';
-import { NavLink } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,10 +25,9 @@ import {
 } from './store/slices/newsSlice';
 import staticNews from './assets/data/news.json';
 import staticNewsLenta from './assets/data/newslenta.json';
-import menu from './assets/data/menu.json';
 import Api from './utils/api';
 import { Context } from './context/context';
-import Navigate from './components/Navigate/Navigate';
+import Header from './components/Header/Header';
 
 function App() {
     const { news, newsLenta } = useSelector((s) => s.news);
@@ -71,9 +69,7 @@ function App() {
     return (
         <>
             <Context.Provider value={value}>
-                <Layout>
-                    <Navigate menu={menu.header} />
-                </Layout>
+                <Header />
                 <Routes>
                     <Route path='/' element={<Home />} />
                     <Route path='/products' element={<Products />} />

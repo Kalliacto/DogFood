@@ -20,6 +20,8 @@
     position: relative;
     flex-direction: row;
     align-items: center;
+    flex: 1;
+    max-width: 50rem;
 }
 
 .form__lbl {

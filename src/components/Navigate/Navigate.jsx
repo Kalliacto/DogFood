@@ -20,5 +20,4 @@ const Navigate = ({ menu, position = 'horizontal' }) => {
     );
 };
 
-export { Link };
 export default Navigate;

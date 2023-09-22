@@ -20,9 +20,7 @@
     left: calc(-2rem - 1px);
     top: 100%;
 }
-.nav_submenu:hover {
-    opacity: 1;
-}
+
 .nav_submenu > .nav__item {
     padding-bottom: 0;
 }
@@ -33,6 +31,11 @@
     position: relative;
     padding: 1rem 0;
 }
+
+.nav__item:hover .nav_submenu {
+    opacity: 1;
+}
+
 .nav .nav__item.nav__item_caption {
     font-weight: bold;
     padding-bottom: 0.5rem;
@@ -45,7 +48,7 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-    justify-content: center;
+    justify-content: flex-end;
     opacity: 0.8;
 }
 .nav__link:hover {
