@@ -40,29 +40,12 @@ const Home = () => {
                     })}
                 </Layout>
             )}
-            {!!news?.length ? (
-                <Layout mb={2} dt={4} title={'Последние новости о пёселях'}>
-                    <Carousel
-                        data={news.map((el, i) => (
-                            <News key={`news=${i}`} data={el} isTitled={true} />
-                        ))}
-                        cnt={screenWidth < 1064 ? 2 : 4}
-                    />
-                </Layout>
-            ) : (
-                <Preloader />
-            )}
+
             <Layout dt={2}>
                 <Adds {...addsData[1]} />
                 <Adds {...addsData[2]} />
             </Layout>
-            {favGoods.length && (
-                <Layout mb={2} dt={4} title='Популярные товары'>
-                    {favGoods.map((el) => {
-                        return <Card key={el._id} {...el} />;
-                    })}
-                </Layout>
-            )}
+
             {!!newsLenta?.length ? (
                 <Layout mb={1} dt={2} title={'Новости пёселей Lenta.ru'}>
                     <Carousel

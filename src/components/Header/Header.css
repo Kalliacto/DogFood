@@ -30,7 +30,7 @@
     padding: 2rem;
     box-shadow: 0 0 2px silver;
     transform: translate(100%, 0);
-    transition: transform 300ms;
+    transition: all 300ms;
 }
 
 .header__btn + .nav .nav__item {
@@ -41,7 +41,7 @@
     justify-content: flex-start;
 }
 .header__btn + .nav .nav__icon {
-    font-size: 2rem;
+    font-size: 2.5rem;
 }
 .header__btn + .nav .nav_submenu {
     position: static;

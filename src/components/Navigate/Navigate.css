@@ -58,6 +58,6 @@
 .nav__image {
     height: 3rem;
 }
-.nav__icon {
-    font-size: 2.5rem !important;
+.nav .nav__icon {
+    font-size: 2.5rem;
 }
