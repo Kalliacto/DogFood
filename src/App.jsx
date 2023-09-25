@@ -14,7 +14,6 @@ import {
     FAQ,
     NotFoundPage,
 } from './pages';
-import Layout from './components/Layout/Layout';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {

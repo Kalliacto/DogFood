@@ -26,8 +26,8 @@ const Link = ({
                         )}
                         {imgType === 'icon' && <i className={`nav__icon ${imgPath}`} />}
                         {title && title}
-                        {children}
                     </RouterLink>
+                    {children}
                 </div>
             )}
         </>
