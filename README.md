@@ -1,3 +1,5 @@
+#### Проект в работе, ознакомиться с промежуточным результатом можно здесь https://kalliacto.github.io/df/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
