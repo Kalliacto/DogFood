@@ -1,6 +1,11 @@
 :root {
     font-size: 8px;
 }
+#root {
+    display: grid;
+    min-height: 100vh;
+    grid-template-rows: auto 1fr auto;
+}
 * {
     position: relative;
     box-sizing: border-box;

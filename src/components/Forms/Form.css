@@ -20,6 +20,8 @@
     position: relative;
     flex-direction: row;
     align-items: center;
+    flex: 1;
+    max-width: 50rem;
 }
 
 .form__lbl {
@@ -37,7 +39,7 @@
     font-size: inherit;
     border-radius: 1rem;
     width: 100%;
-    background-color: inherit;
+    background-color: white;
 }
 .form__inp:focus {
     box-shadow: 0 0 2px 0 silver;
