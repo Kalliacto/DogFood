@@ -28,6 +28,7 @@ import Api from './utils/api';
 import { Context } from './context/context';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
+import { filterCards } from './utils/utils';
 
 function App() {
     const { news, newsLenta } = useSelector((s) => s.news);
@@ -35,10 +36,21 @@ function App() {
     const [userId, setUserId] = useState(localStorage.getItem('user-id'));
     const [api, setApi] = useState(new Api(token));
     const dispatch = useDispatch();
+    const [products, setProducts] = useState([]);
 
     useEffect(() => {
         setApi(new Api(token));
     }, [token]);
+
+    useEffect(() => {
+        if (token) {
+            api.getProducts().then((data) => {
+                setProducts(filterCards(data.products));
+            });
+        } else {
+            setProducts([]);
+        }
+    }, [api]);
 
     useEffect(() => {
         setToken(localStorage.getItem('user-token'));
@@ -64,6 +76,8 @@ function App() {
         api,
         userId,
         setUserId,
+        products,
+        setProducts,
     };
 
     return (

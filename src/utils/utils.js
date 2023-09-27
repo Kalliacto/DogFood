@@ -8,3 +8,7 @@ export const getEndings = (num, word) => {
         return ` ${word}ов`;
     }
 };
+
+export const filterCards = (card) => {
+    return card.filter((item) => item.author._id === '622bd81b06c7d323b8ae4614');
+};

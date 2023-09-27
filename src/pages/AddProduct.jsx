@@ -1,10 +1,11 @@
 import React from 'react';
+import Layout from '../components/Layout/Layout';
 
 const AddProduct = (props) => {
     return (
-        <div>
+        <Layout>
             <p>AddProduct page</p>
-        </div>
+        </Layout>
     );
 };
 
