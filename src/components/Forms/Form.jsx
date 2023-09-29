@@ -9,6 +9,8 @@ import Image from './fields/Image';
 import './Form.css';
 import ProductForm from './forms/ProductForm';
 import ReviewForm from './forms/ReviewForm';
+import Switch from './fields/Switch';
+import Tag from './fields/Tag';
 
 // TODO: компонент с чекбокс
 // TODO: компонент с тегами
@@ -17,6 +19,19 @@ const Form = ({ type, fieldsType, cb = () => {} }) => {
     const authFields = ['email', 'password'];
     const reqFields = ['email', 'name', 'avatar', 'about', 'password'];
     const pwdFields = ['email', 'token', 'password'];
+    const productFields = [
+        'name',
+        'pictures',
+        'price',
+        'discount',
+        'stock',
+        'wight',
+        'description',
+        'tags',
+        'available',
+        'isPublished',
+    ];
+    const reviewFields = ['rating', 'text'];
 
     return (
         <>
@@ -55,11 +70,25 @@ const Form = ({ type, fieldsType, cb = () => {} }) => {
                     )}
                 </>
             )}
-            {type === 'product' && <ProductForm />}
+            {type === 'product' && (
+                <ProductForm fields={productFields} btnText='Добавить товар' cb={cb} />
+            )}
             {type === 'review' && <ReviewForm />}
         </>
     );
 };
 
-export { Input, Search, Select, Textarea, Image, Password, AuthForm, ReviewForm, ProductForm };
+export {
+    Input,
+    Search,
+    Select,
+    Textarea,
+    Image,
+    Password,
+    AuthForm,
+    ReviewForm,
+    ProductForm,
+    Switch,
+    Tag,
+};
 export default Form;

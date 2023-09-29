@@ -45,7 +45,7 @@ function App() {
     useEffect(() => {
         if (token) {
             api.getProducts().then((data) => {
-                setProducts(filterCards(data.products));
+                setProducts(filterCards(data.products, userId));
             });
         } else {
             setProducts([]);

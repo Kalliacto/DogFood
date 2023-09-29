@@ -6,6 +6,10 @@
     gap: 2rem;
 }
 
+.layout .layout {
+    padding: 0;
+}
+
 .layout_2 {
     grid-template-columns: repeat(2, 1fr);
 }
