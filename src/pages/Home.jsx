@@ -12,11 +12,13 @@ import Preloader from '../components/Preloader/Preloader';
 import Card from '../components/Card/Card';
 import useResize from '../hooks/useResize';
 import { Context } from '../context/context';
+import UtilCtx from '../context/utils';
 
 const Home = () => {
     const screenWidth = useResize(window.innerWidth);
     const { news, newsLenta } = useSelector((s) => s.news);
     const { products, userId } = useContext(Context);
+    const { getNumber } = useContext(UtilCtx);
 
     const favGoods = products
         .filter((el) => el.reviews.length > 0)
@@ -59,8 +61,8 @@ const Home = () => {
                 </Layout>
             )}
             <Layout dt={2}>
-                <Adds {...addsData[1]} />
-                <Adds {...addsData[2]} />
+                <Adds {...addsData[getNumber(addsData.length)]} />
+                <Adds {...addsData[getNumber(addsData.length)]} />
             </Layout>
             {!!newsLenta?.length ? (
                 <Layout mb={1} dt={2} title={'Новости пёселей Lenta.ru'}>

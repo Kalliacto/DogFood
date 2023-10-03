@@ -1,13 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import Layout from '../components/Layout/Layout';
 import { Context } from '../context/context';
 import Card from '../components/Card/Card';
 import Banner from '../components/Banner/Banner';
 import bannersData from '../assets/data/banners.json';
+import UtilsCtx from '../context/utils';
 
 const Products = ({ isFav = false, isCat = false }) => {
     const { products } = useContext(Context);
+    const { filterProducts } = useContext(UtilsCtx);
+    const [goods, setGoods] = useState([]);
+    const [filterGoods, setFilterGoods] = useState([]);
     const { name } = useParams();
     const names = {
         outerwear: 'Одежда',
@@ -16,31 +20,47 @@ const Products = ({ isFav = false, isCat = false }) => {
         other: 'Прочие товары',
     };
 
-    console.log(products);
+    // const goods = products.filter((el) => {
+    //     if (name === 'other') {
+    //         return !el.tags.includes(
+    //             (category) =>
+    //                 category === 'outerwear' && category === 'toys' && category === 'delicious'
+    //         );
+    //         // return el.tags.includes((category) => category === 'other');
+    //     }
+    //     if (name) {
+    //         return el.tags.includes(name);
+    //     }
+    //     return el;
+    // });
 
-    const goods = products.filter((el) => {
+    useEffect(() => {
         if (name === 'other') {
-            return !el.tags.includes(
-                (category) =>
-                    category === 'outerwear' && category === 'toys' && category === 'delicious'
+            setGoods(
+                filterProducts(products)
+                    .byTag('outerwear', false)
+                    .byTag('toys', false)
+                    .byTag('delicious', false).data
             );
-            // return el.tags.includes((category) => category === 'other');
+        } else if (name) {
+            setGoods(filterProducts(products).byTag(name).data);
+        } else {
+            setGoods(filterProducts(products).data);
         }
-        if (name) {
-            return el.tags.includes(name);
-        }
+    }, [name]);
 
-        return el;
-    });
+    useEffect(() => {
+        setFilterGoods(goods);
+    }, [goods]);
 
     return (
         <>
-            {isCat && <Banner title={names[name]} bg={bannersData[0].bg} />}
+            {isCat && <Banner title={names[name] || name} bg={bannersData[0].bg} />}
             <Layout>
                 {isFav && <h2>Любимые товары</h2>}
                 {!isFav && !isCat && <h2>Страница товаров</h2>}
                 <Layout mb={2} dt={4}>
-                    {goods.map((el) => {
+                    {filterGoods.map((el) => {
                         return <Card key={el._id} {...el} />;
                     })}
                 </Layout>

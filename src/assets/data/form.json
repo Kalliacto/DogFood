@@ -109,7 +109,8 @@
             "format": "input",
             "label": "Вес",
             "attr": {
-                "type": "text"
+                "type": "text",
+                "required": true
             }
         },
         "description": {
