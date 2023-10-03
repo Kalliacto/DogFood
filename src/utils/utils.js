@@ -11,6 +11,6 @@ export const getEndings = (num, word) => {
 
 export const filterCards = (card, id) => {
     return card.filter(
-        (item) => item.author._id == '622bd81b06c7d323b8ae4614' || item.author._id == id
+        (item) => item.author._id === '622bd81b06c7d323b8ae4614' || item.author._id === id
     );
 };

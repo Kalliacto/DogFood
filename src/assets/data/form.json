@@ -113,7 +113,7 @@
             }
         },
         "description": {
-            "format": "input",
+            "format": "textarea",
             "label": "Описание",
             "attr": {
                 "required": true

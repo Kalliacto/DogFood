@@ -11,23 +11,26 @@ const Products = ({ isFav = false, isCat = false }) => {
     const { name } = useParams();
     const names = {
         outerwear: 'Одежда',
-        delicious: 'Лакомства',
         toys: 'Игрушки',
+        delicious: 'Лакомства',
         other: 'Прочие товары',
     };
 
+    console.log(products);
+
     const goods = products.filter((el) => {
         if (name === 'other') {
-            // return el.includes(category => category === 'other')
             return !el.tags.includes(
                 (category) =>
                     category === 'outerwear' && category === 'toys' && category === 'delicious'
             );
-        } else if (name) {
-            return el.tags.includes(name);
-        } else {
-            return el;
+            // return el.tags.includes((category) => category === 'other');
         }
+        if (name) {
+            return el.tags.includes(name);
+        }
+
+        return el;
     });
 
     return (
