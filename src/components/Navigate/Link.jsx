@@ -38,7 +38,6 @@ const Link = ({
 }) => {
     const { userId } = useContext(Context);
 
-    console.log(path);
     return (
         <>
             {(visibility === 'all' ||

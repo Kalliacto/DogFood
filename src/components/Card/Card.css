@@ -86,7 +86,7 @@
 }
 .card__btn_basket {
     border-radius: 1rem;
-    background-color: silver;
+    background-color: #ffd657;
     flex: 1;
 }
 .card__tag {

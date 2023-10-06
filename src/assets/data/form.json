@@ -92,8 +92,15 @@
             }
         },
         "isPublished": {
-            "format": "input",
+            "format": "switch",
             "label": "Опубликовать",
+            "attr": {
+                "type": "checkbox"
+            }
+        },
+        "available": {
+            "format": "switch",
+            "label": "Доступно для заказа",
             "attr": {
                 "type": "checkbox"
             }
@@ -102,11 +109,12 @@
             "format": "input",
             "label": "Вес",
             "attr": {
-                "type": "text"
+                "type": "text",
+                "required": true
             }
         },
         "description": {
-            "format": "input",
+            "format": "textarea",
             "label": "Описание",
             "attr": {
                 "required": true
@@ -121,9 +129,9 @@
                 "placeholder": "Ссылка на картинку"
             }
         },
-        "tag": {
-            "format": "input",
-            "label": "Тэги",
+        "tags": {
+            "format": "tag",
+            "label": "Теги",
             "attr": {
                 "type": "text"
             }
