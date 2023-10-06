@@ -6,6 +6,8 @@ import Card from '../components/Card/Card';
 import Banner from '../components/Banner/Banner';
 import bannersData from '../assets/data/banners.json';
 import UtilsCtx from '../context/utils';
+import usePaginate from '../hooks/usePaginate';
+import Pagination from '../components/Pagination/Pagination';
 
 const Products = ({ isFav = false, isCat = false }) => {
     const { products } = useContext(Context);
@@ -19,20 +21,7 @@ const Products = ({ isFav = false, isCat = false }) => {
         delicious: 'Лакомства',
         other: 'Прочие товары',
     };
-
-    // const goods = products.filter((el) => {
-    //     if (name === 'other') {
-    //         return !el.tags.includes(
-    //             (category) =>
-    //                 category === 'outerwear' && category === 'toys' && category === 'delicious'
-    //         );
-    //         // return el.tags.includes((category) => category === 'other');
-    //     }
-    //     if (name) {
-    //         return el.tags.includes(name);
-    //     }
-    //     return el;
-    // });
+    const paginate = usePaginate(filterGoods, 4);
 
     useEffect(() => {
         if (name === 'other') {
@@ -47,7 +36,7 @@ const Products = ({ isFav = false, isCat = false }) => {
         } else {
             setGoods(filterProducts(products).data);
         }
-    }, [name]);
+    }, [name, products]);
 
     useEffect(() => {
         setFilterGoods(goods);
@@ -60,10 +49,11 @@ const Products = ({ isFav = false, isCat = false }) => {
                 {isFav && <h2>Любимые товары</h2>}
                 {!isFav && !isCat && <h2>Страница товаров</h2>}
                 <Layout mb={2} dt={4}>
-                    {filterGoods.map((el) => {
+                    {paginate.getPage().map((el) => {
                         return <Card key={el._id} {...el} />;
                     })}
                 </Layout>
+                <Pagination hook={paginate} />
             </Layout>
         </>
     );

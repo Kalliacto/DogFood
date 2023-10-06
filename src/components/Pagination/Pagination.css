@@ -1,0 +1,31 @@
+.pagination {
+    margin-top: 5rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    color: silver;
+}
+
+.pagination__btn {
+    background-color: white;
+    border: 1px solid silver;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    transition: all 0.2s;
+}
+.pagination__btn:hover {
+    background-color: #ffd657;
+    color: white;
+}
+.pagination__btn:disabled {
+    opacity: 0.5;
+    cursor: auto;
+    color: silver;
+}
+.pagination__btn_active {
+    background: #ffd657;
+    color: white;
+}
