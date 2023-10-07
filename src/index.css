@@ -67,3 +67,12 @@ ul {
 button {
     cursor: pointer;
 }
+
+.filter__item {
+    cursor: pointer;
+    color: gray;
+}
+
+.filter__item:hover {
+    color: black;
+}
