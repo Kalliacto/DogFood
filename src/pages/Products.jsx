@@ -9,13 +9,13 @@ import UtilsCtx from '../context/utils';
 import usePaginate from '../hooks/usePaginate';
 import Pagination from '../components/Pagination/Pagination';
 
+// TODO: Сброс фильтров
 const Products = ({ isFav = false, isCat = false }) => {
     const { name } = useParams();
     const { products } = useContext(Context);
     const { filterProducts, getUniqueTag, getUniqueAuthors } = useContext(UtilsCtx);
     const [goods, setGoods] = useState([]);
     const [filterGoods, setFilterGoods] = useState([]); //Результат после фильтрации
-
     const [authors, setAuthors] = useState([]);
     const [tags, setTags] = useState([]);
 
