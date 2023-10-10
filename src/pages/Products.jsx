@@ -30,10 +30,7 @@ const Products = ({ isFav = false, isCat = false }) => {
     useEffect(() => {
         if (name === 'other') {
             setGoods(
-                filterProducts(products)
-                    .byTag('outerwear', false)
-                    .byTag('toys', false)
-                    .byTag('delicious', false).data
+                filterProducts(products).byTag(['outerwear', 'toys', 'delicious'], false).data
             );
         } else if (name) {
             setGoods(filterProducts(products).byTag(name).data);

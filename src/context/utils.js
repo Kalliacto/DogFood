@@ -31,7 +31,12 @@ class GoodsFilter {
         return this;
     }
     byAuthor(id, flag = true) {
-        this.data = this.data.filter((el) => (flag ? el.author._id === id : el.author._id !== id));
+        this.data = this.data.filter((el) => {
+            if (typeof id === 'string') {
+                return flag ? el.author._id === id : el.author._id !== id;
+            }
+            return flag ? id.includes(el.author._id) : !id.includes(el.author._id);
+        });
         return this;
     }
     byId(id, flag = true) {
@@ -49,11 +54,60 @@ class GoodsFilter {
         );
         return this;
     }
+    byText(text, withDescription = false) {
+        this.data = this.data.filter((el) => {
+            const exp = new RegExp(text, 'i');
+            return exp.test(el.name) || (withDescription && exp.test(el.description));
+        });
+        return this;
+    }
+    byPrice(min = 1, max = min) {
+        this.data = this.data.filter((el) => {
+            const price = +(el.price * (1 - el.discount / 100)).toFixed(2);
+            return price >= min && price <= max;
+        });
+        return this;
+    }
+    byQuantityInStock(min = 1, max = min) {
+        this.data = this.data.filter((el) => el.stock >= min && el.stock <= max);
+        return this;
+    }
+    isAvailable(flag = true) {
+        this.data = this.data.filter((el) =>
+            el.available === flag || flag ? el.stock !== 0 : el.stock === 0
+        );
+        return this;
+    }
+    isFavorite(id) {
+        this.data = this.data.filter((el) => el.likes.includes(id));
+        return this;
+    }
+    isPublished(flag = true) {
+        this.data = this.data.filter((el) => (flag ? el.isPublished : !el.isPublished));
+        return this;
+    }
+    withDiscount(flag = true) {
+        this.data = this.data.filter((el) => (flag ? el.discount > 0 : el.discount === 0));
+        return this;
+    }
+    withReviews(flag = true) {
+        this.data = this.data.filter((el) =>
+            flag ? el.reviews.length > 0 : el.reviews.length < 0
+        );
+        return this;
+    }
+    withLikes(flag = true) {
+        this.data = this.data.filter((el) => (flag ? el.likes.length > 0 : el.likes.length < 0));
+        return this;
+    }
 }
 
 export const initialValue = {
-    getNumber: (max = 11, min = 1) => {
+    getNumber: (max = 11, min = 0) => {
         return Math.floor(Math.random() * (max - min) + min);
+    },
+    setPrice: (el) => {
+        return +(el.price * (1 - el.discount / 100)).toFixed(2);
     },
     filterProducts: (arr) => new GoodsFilter(arr),
     getUniqueTag: (arr) =>

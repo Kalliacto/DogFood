@@ -14,7 +14,7 @@ import {
     FAQ,
     NotFoundPage,
 } from './pages';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     getAllNews,
@@ -64,11 +64,13 @@ function App() {
                     });
                     return el;
                 });
+
                 blackList.authors.forEach((el) => {
                     arr = utilsValue.filterProducts(arr).byAuthor(el, false).data;
                 });
                 arr = utilsValue.filterProducts(arr).byTag(blackList.tags, false).data;
                 arr = utilsValue.filterProducts(arr).byId(blackList.goods, false).data;
+
                 setProducts(arr);
             });
         } else {
