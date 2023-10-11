@@ -1,4 +1,4 @@
-#### Проект в работе, ознакомиться с промежуточным результатом можно здесь https://kalliacto.github.io/df/
+#### Проект в работе, ознакомиться с промежуточным результатом можно здесь https://kalliacto.github.io/DogFood/
 
 # Getting Started with Create React App
 
