@@ -5,7 +5,7 @@
             "label": "Ваше имя",
             "attr": {
                 "type": "text",
-                "placeholder": "Ваше имя",
+                "placeholder": "Лютиков Игорь",
                 "required": true
             }
         },
@@ -65,8 +65,8 @@
             "attr": {
                 "type": "number",
                 "required": true,
-                "min": 0,
-                "max": 999999
+                "min": 1,
+                "max": 99999
             }
         },
         "discount": {
@@ -84,7 +84,7 @@
         },
         "stock": {
             "format": "input",
-            "label": "Колличество",
+            "label": "Количество",
             "attr": {
                 "type": "number",
                 "min": 1,
@@ -93,24 +93,17 @@
         },
         "isPublished": {
             "format": "switch",
-            "label": "Опубликовать",
-            "attr": {
-                "type": "checkbox"
-            }
+            "label": "Опубликовать"
         },
         "available": {
             "format": "switch",
-            "label": "Доступно для заказа",
-            "attr": {
-                "type": "checkbox"
-            }
+            "label": "Доступно для заказа"
         },
         "wight": {
             "format": "input",
             "label": "Вес",
             "attr": {
-                "type": "text",
-                "required": true
+                "type": "text"
             }
         },
         "description": {
@@ -153,20 +146,6 @@
             "label": "Ваш отзыв",
             "attr": {
                 "required": true
-            }
-        },
-        "name": {
-            "format": "input",
-            "label": "Название отзыва",
-            "attr": {
-                "type": "text"
-            }
-        },
-        "city": {
-            "format": "input",
-            "label": "Город",
-            "attr": {
-                "type": "text"
             }
         }
     }

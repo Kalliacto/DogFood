@@ -6,8 +6,9 @@ const Switch = ({ name, label, attr, state }) => {
             <input
                 className='form__switch'
                 id={name}
-                {...attr}
                 value={state[0]}
+                type='checkbox'
+                {...attr}
                 onChange={(e) => state[1](e.target.checked)}
             />
             <label className='form__lbl form__lbl_switch' htmlFor={name}>

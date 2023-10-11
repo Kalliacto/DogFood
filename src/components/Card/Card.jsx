@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getEndings } from '../../utils/utils';
 import Utils from '../../context/utils';
 
-// TODO: отобразить недоступный товар
 const Card = ({ ...props }) => {
     const { name, discount, likes, pictures, price, reviews, stock, available, tags, _id } = {
         ...props,
