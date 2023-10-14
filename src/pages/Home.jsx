@@ -13,6 +13,7 @@ import Card from '../components/Card/Card';
 import useResize from '../hooks/useResize';
 import { Context } from '../context/context';
 import UtilCtx from '../context/utils';
+import Empty from '../components/Empty/Empty';
 
 const Home = () => {
     const screenWidth = useResize(window.innerWidth);
@@ -53,13 +54,20 @@ const Home = () => {
             ) : (
                 <Preloader />
             )}
-            {!!newGoods.length && (
-                <Layout mb={2} dt={4} title='Наши новинки'>
-                    {newGoods.map((el) => {
-                        return <Card key={el._id} {...el} />;
-                    })}
-                </Layout>
+            {userId ? (
+                <>
+                    {!!newGoods.length && (
+                        <Layout mb={2} dt={4} title='Наши новинки'>
+                            {newGoods.map((el) => {
+                                return <Card key={el._id} {...el} />;
+                            })}
+                        </Layout>
+                    )}
+                </>
+            ) : (
+                <Empty type='no-user' />
             )}
+
             <Layout dt={2}>
                 <Adds {...addsData[getNumber(addsData.length)]} />
                 <Adds {...addsData[getNumber(addsData.length)]} />
@@ -76,26 +84,39 @@ const Home = () => {
             ) : (
                 <Preloader />
             )}
-            {!!products.length && (
-                // TODO: Сделать фильтрацию просмотренного
-                <Layout mb={2} dt={4} title='Недавно просмотренные'>
-                    {products
-                        .map((el) => {
-                            return <Card key={el._id} {...el} />;
-                        })
-                        .slice(0, screenWidth < 1064 ? 2 : 4)}
-                </Layout>
+
+            {userId ? (
+                <>
+                    {!!products.length && (
+                        // TODO: Сделать фильтрацию просмотренного
+                        <Layout mb={2} dt={4} title='Недавно просмотренные'>
+                            {products
+                                .map((el) => {
+                                    return <Card key={el._id} {...el} />;
+                                })
+                                .slice(0, screenWidth < 1064 ? 2 : 4)}
+                        </Layout>
+                    )}
+                </>
+            ) : (
+                <Empty type='no-user' />
             )}
+
             <Layout>
                 <Adds {...addsData[5]} />
             </Layout>
-
-            {!!favGoods.length && (
-                <Layout mb={2} dt={4} title='Популярные товары'>
-                    {favGoods.map((el) => {
-                        return <Card key={el._id} {...el} />;
-                    })}
-                </Layout>
+            {userId ? (
+                <>
+                    {!!favGoods.length && (
+                        <Layout mb={2} dt={4} title='Популярные товары'>
+                            {favGoods.map((el) => {
+                                return <Card key={el._id} {...el} />;
+                            })}
+                        </Layout>
+                    )}
+                </>
+            ) : (
+                <Empty type='no-user' />
             )}
         </>
     );

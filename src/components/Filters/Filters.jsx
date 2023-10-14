@@ -3,13 +3,12 @@ import './Filters.css';
 import UtilCtx from '../../context/utils';
 import { Input, Search, Switch } from '../Forms/Form';
 
-// TODO: исправить баг с полем выбрать цену
 const Filters = ({ goods, filterGoods, setFilterGoods }) => {
     const { filterProducts, getUniqueTag, getUniqueAuthors, setPrice } = useContext(UtilCtx);
     const [authors, setAuthors] = useState([]);
     const [tags, setTags] = useState([]);
-    const [max, setMax] = useState(0);
-    const [min, setMin] = useState(0);
+    const [max, setMax] = useState(1);
+    const [min, setMin] = useState(1);
     const [search, setSearch] = useState('');
     const [filterMin, setFilterMin] = useState(min);
     const [filterMax, setFilterMax] = useState(max);
@@ -25,6 +24,7 @@ const Filters = ({ goods, filterGoods, setFilterGoods }) => {
             state.includes(tag) ? state.filter((el) => el !== tag) : [...state, tag]
         );
     };
+
     const authorsHandler = (id) => {
         setFilterAuthors((state) =>
             state.includes(id) ? state.filter((el) => el !== id) : [...state, id]
@@ -47,8 +47,6 @@ const Filters = ({ goods, filterGoods, setFilterGoods }) => {
         if (goods.length) {
             setAuthors(getUniqueAuthors(goods));
             setTags(getUniqueTag(goods));
-            setMin(Math.min(...filterGoods.map((el) => setPrice(el))));
-            setMax(Math.max(...filterGoods.map((el) => setPrice(el))));
         }
     }, [goods]);
 
@@ -62,6 +60,15 @@ const Filters = ({ goods, filterGoods, setFilterGoods }) => {
     }, [max, min]);
 
     useEffect(() => {
+        if (filterGoods.length) {
+            setMin(Math.min(...filterGoods.map((el) => setPrice(el))));
+            setMax(Math.max(...filterGoods.map((el) => setPrice(el))));
+        }
+
+        return;
+    }, [filterGoods]);
+
+    useEffect(() => {
         let arr = [...goods];
 
         if (filterTags.length) {
@@ -72,9 +79,6 @@ const Filters = ({ goods, filterGoods, setFilterGoods }) => {
         }
         if (search) {
             arr = filterProducts(arr).byText(search).data;
-        }
-        if (filterMin !== min || filterMax !== max) {
-            arr = filterProducts(arr).byPrice(filterMin, filterMax).data;
         }
         if (filterDiscount) {
             arr = filterProducts(arr).withDiscount().data;
@@ -88,6 +92,10 @@ const Filters = ({ goods, filterGoods, setFilterGoods }) => {
         if (filterAvailable) {
             arr = filterProducts(arr).isAvailable().data;
         }
+        // if (filterMin !== min || filterMax !== max) {
+        // if (filterMax > 1) {
+        //     arr = filterProducts(arr).byPrice(filterMin, filterMax).data;
+        // }
         setFilterGoods(arr);
     }, [
         search,
@@ -99,16 +107,18 @@ const Filters = ({ goods, filterGoods, setFilterGoods }) => {
         filterDiscount,
         filterReviews,
         filterLikes,
+        goods,
     ]);
 
     return (
         <div className='filter'>
             <Search
-                setState={setSearch}
+                setSearch={setSearch}
                 attr={{
                     placeholder: 'Поиск по названию',
                 }}
                 type='single'
+                search={search}
             />
             <div className='filter__item'>
                 <h4 className='filter__title'>Выбрать цену</h4>
@@ -202,7 +212,9 @@ const Filters = ({ goods, filterGoods, setFilterGoods }) => {
                     </ul>
                 </div>
             )}
-            <button onClick={clearFilters}>Сбросить фильтры</button>
+            <button onClick={clearFilters} className='card__btn  filter__btn'>
+                Сбросить фильтры
+            </button>
         </div>
     );
 };

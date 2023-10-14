@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Layout from '../components/Layout/Layout';
+import Empty from '../components/Empty/Empty';
 
 const Favorites = (props) => {
+    const [favorites, setFavorites] = useState([]);
     return (
-        <div>
-            <p>Favorites.jsx</p>
-        </div>
+        <>
+            {!!favorites.length ? (
+                <Layout>
+                    <h2>Любимые товары</h2>
+                </Layout>
+            ) : (
+                <Empty type='favorite' />
+            )}
+        </>
     );
 };
 

@@ -13,6 +13,7 @@ import {
     SingleProduct,
     FAQ,
     NotFoundPage,
+    Favorites,
 } from './pages';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -119,7 +120,7 @@ function App() {
                                 path='/products/category/:name'
                                 element={<Products isCat={true} />}
                             />
-                            <Route path='/products/favorites' element={<Products isFav={true} />} />
+                            <Route path='/products/favorites' element={<Favorites />} />
                             <Route path='/product/:id' element={<SingleProduct />} />
                             <Route path='/product/add' element={<AddProduct />} />
                             <Route path='/basket' element={<Basket />} />

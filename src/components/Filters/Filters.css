@@ -47,3 +47,8 @@
     font-weight: 600;
     opacity: 1;
 }
+
+.filter__btn {
+    border-radius: 1rem;
+    background-color: #ffd657;
+}

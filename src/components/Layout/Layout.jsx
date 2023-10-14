@@ -1,7 +1,15 @@
 import React from 'react';
 import './Layout.css';
 
-const Layout = ({ mb = 1, dt = mb, gap = 'normal', children, title = false, top = false }) => {
+const Layout = ({
+    mb = 1,
+    dt = mb,
+    gap = 'normal',
+    children,
+    title = false,
+    top = false,
+    fullHeight = false,
+}) => {
     let className = 'layout';
 
     switch (mb) {
@@ -52,6 +60,10 @@ const Layout = ({ mb = 1, dt = mb, gap = 'normal', children, title = false, top 
             break;
         default:
             className += '';
+    }
+
+    if (fullHeight) {
+        className += ' layout_h-100';
     }
 
     return (

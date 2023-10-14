@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { memo, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import Layout from '../components/Layout/Layout';
 import { Context } from '../context/context';
@@ -10,11 +10,13 @@ import usePaginate from '../hooks/usePaginate';
 import Pagination from '../components/Pagination/Pagination';
 import useResize from '../hooks/useResize';
 import Filters from '../components/Filters/Filters';
+import Empty from '../components/Empty/Empty';
 
-const Products = ({ isFav = false, isCat = false }) => {
+// TODO: фильтры по цене продумать
+const Products = memo(({ isCat = false }) => {
     const screenWidth = useResize(window.innerWidth);
     const { name } = useParams();
-    const { products } = useContext(Context);
+    const { products, userId } = useContext(Context);
     const { filterProducts } = useContext(UtilsCtx);
     const [goods, setGoods] = useState([]);
     const [filterGoods, setFilterGoods] = useState([]); //Результат после фильтрации
@@ -46,34 +48,45 @@ const Products = ({ isFav = false, isCat = false }) => {
 
     return (
         <>
-            {isCat && <Banner title={names[name] || name} bg={bannersData[0].bg} />}
-            <Layout title={isFav && 'Любимые товары'} top={'top'} mb={3} dt={4}>
-                <Layout>
-                    <div className='filters'>
-                        <Filters
-                            goods={goods}
-                            filterGoods={filterGoods}
-                            setFilterGoods={setFilterGoods}
-                        />
-                    </div>
-                </Layout>
-                <div
-                    style={
-                        screenWidth > 1064
-                            ? { gridColumnEnd: 'span 3' }
-                            : { gridColumnEnd: 'span 2' }
-                    }
-                >
-                    <Layout mb={1} dt={3}>
-                        {paginate.getPage().map((el) => {
-                            return <Card key={el._id} {...el} />;
-                        })}
+            {goods.length > 0 && (
+                <>
+                    {isCat && (
+                        <Banner title={names[name] || name} main={false} bg='paws' pattern={true} />
+                    )}
+                    <Layout mb={3} dt={4} fullHeight={true}>
+                        <Layout>
+                            <Filters
+                                goods={goods}
+                                filterGoods={filterGoods}
+                                setFilterGoods={setFilterGoods}
+                            />
+                        </Layout>
+                        <div
+                            style={
+                                screenWidth > 1064
+                                    ? { gridColumnEnd: 'span 3' }
+                                    : { gridColumnEnd: 'span 2' }
+                            }
+                        >
+                            {filterGoods?.length > 0 ? (
+                                <>
+                                    <Layout mb={1} dt={3}>
+                                        {paginate.getPage().map((el) => (
+                                            <Card key={el._id} {...el} />
+                                        ))}
+                                    </Layout>
+                                    <Pagination hook={paginate} />
+                                </>
+                            ) : (
+                                <Empty type='filter' />
+                            )}
+                        </div>
                     </Layout>
-                    <Pagination hook={paginate} />
-                </div>
-            </Layout>
+                </>
+            )}
+            {goods.length === 0 && <Empty type='category' />}
         </>
     );
-};
+});
 
 export { Products };
