@@ -12,29 +12,22 @@ import Preloader from '../components/Preloader/Preloader';
 import Card from '../components/Card/Card';
 import useResize from '../hooks/useResize';
 import { Context } from '../context/context';
-import UtilCtx from '../context/utils';
 import Empty from '../components/Empty/Empty';
+import UtilsCtx from '../context/utils';
 
 const Home = () => {
     const screenWidth = useResize(window.innerWidth);
     const { news, newsLenta } = useSelector((s) => s.news);
     const { products, userId } = useContext(Context);
-    const { getNumber } = useContext(UtilCtx);
+    const { getNumber, sortProducts } = useContext(UtilsCtx);
 
-    const favGoods = products
-        .filter((el) => el.reviews.length > 0)
-        .sort((a, b) => {
-            const sumA = a.reviews.reduce((acc, value) => acc + value.rating, 0) / a.reviews.length;
-            const sumB = b.reviews.reduce((acc, value) => acc + value.rating, 0) / b.reviews.length;
-            return sumB - sumA;
-        })
-        .slice(0, screenWidth < 1064 ? 2 : 4);
+    const favGoods = sortProducts(products)
+        .byPopular('down', true)
+        .data.slice(0, screenWidth < 1064 ? 2 : 4);
 
-    const newGoods = [...products]
-        .sort((a, b) => {
-            return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
-        })
-        .slice(0, screenWidth < 1064 ? 2 : 4);
+    const newGoods = sortProducts(products)
+        .byDate()
+        .data.slice(0, screenWidth < 1064 ? 2 : 4);
 
     return (
         <>

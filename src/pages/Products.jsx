@@ -4,7 +4,6 @@ import Layout from '../components/Layout/Layout';
 import { Context } from '../context/context';
 import Card from '../components/Card/Card';
 import Banner from '../components/Banner/Banner';
-import bannersData from '../assets/data/banners.json';
 import UtilsCtx from '../context/utils';
 import usePaginate from '../hooks/usePaginate';
 import Pagination from '../components/Pagination/Pagination';
@@ -16,8 +15,8 @@ import Empty from '../components/Empty/Empty';
 const Products = memo(({ isCat = false }) => {
     const screenWidth = useResize(window.innerWidth);
     const { name } = useParams();
-    const { products, userId } = useContext(Context);
-    const { filterProducts } = useContext(UtilsCtx);
+    const { products } = useContext(Context);
+    const { filterProducts, sortProducts } = useContext(UtilsCtx);
     const [goods, setGoods] = useState([]);
     const [filterGoods, setFilterGoods] = useState([]); //Результат после фильтрации
 
@@ -41,6 +40,12 @@ const Products = memo(({ isCat = false }) => {
         }
         paginate.step(1);
     }, [name, products]);
+
+    useEffect(() => {
+        setFilterGoods(sortProducts(goods).data);
+    }, [goods]);
+
+    console.log(goods);
 
     useEffect(() => {
         paginate.step(1);
