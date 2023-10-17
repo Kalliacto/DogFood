@@ -45,8 +45,6 @@ const Products = memo(({ isCat = false }) => {
         setFilterGoods(sortProducts(goods).data);
     }, [goods]);
 
-    console.log(goods);
-
     useEffect(() => {
         paginate.step(1);
     }, [filterGoods]);

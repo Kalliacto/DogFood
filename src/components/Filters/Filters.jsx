@@ -165,7 +165,7 @@ const Filters = ({ goods, filterGoods, setFilterGoods }) => {
                     name='available'
                 />
                 <Switch
-                    label='Понравившиеся товары'
+                    label='C отметкой «Нравится»'
                     state={[filterLikes, setFilterLikes]}
                     name='likes'
                 />

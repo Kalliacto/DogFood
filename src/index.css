@@ -67,12 +67,10 @@ ul {
 button {
     cursor: pointer;
 }
-
-/* .filter__item {
-    cursor: pointer;
-    color: gray;
+th,
+td {
+    text-align: left;
 }
-
-.filter__item:hover {
-    color: black;
-} */
+.product__img {
+    width: 100%;
+}
