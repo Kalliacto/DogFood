@@ -16,20 +16,14 @@ export const filterCards = (card, id) => {
 };
 
 export const changeEnds = (str) => {
-    if (str.endsWith('шт')) {
-        return 'Колличесвто: ';
+    if (str?.trim().endsWith('шт')) {
+        return 'Количество: ';
     }
     return 'Вес: ';
 };
 
 export const checkingEnd = (str) => {
-    const re = new RegExp(/г/gim);
-
-    if (!re.test(str)) {
-        return 'г.';
-    }
-
-    return '';
+    return isNaN(str) ? str : str + ' г.';
 };
 
 export const stockAvailability = (num) => {

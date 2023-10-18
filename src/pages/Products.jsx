@@ -42,7 +42,7 @@ const Products = memo(({ isCat = false }) => {
     }, [name, products]);
 
     useEffect(() => {
-        setFilterGoods(sortProducts(goods).data);
+        setFilterGoods(sortProducts(goods).byDate().data);
     }, [goods]);
 
     useEffect(() => {

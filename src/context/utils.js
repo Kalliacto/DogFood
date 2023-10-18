@@ -230,6 +230,19 @@ export const initialValue = {
         }
         return result;
     },
+    setStars: (num) => {
+        let stars = [];
+        let i = 0;
+        while (i < num) {
+            stars.push(<i className='lni lni-star-fill' key={i} />);
+            i++;
+        }
+        while (i < 5) {
+            stars.push(<i className='lni lni-star-empty' key={i} />);
+            i++;
+        }
+        return stars;
+    },
 };
 
 const Utils = createContext(initialValue);
