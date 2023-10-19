@@ -1,6 +1,11 @@
 import { useState } from 'react';
 
-const usePaginate = (arr, count) => {
+const usePaginate = (arr, screenWidth) => {
+    let count = 9;
+    if (screenWidth < 500) {
+        count = 4;
+    }
+
     const [page, setPage] = useState(1);
     const maxPage = Math.ceil(arr.length / count);
 

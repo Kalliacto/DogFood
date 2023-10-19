@@ -81,3 +81,10 @@
         font-size: 6rem;
     }
 }
+
+@media screen and (max-width: 500px) {
+    main .layout {
+        display: flex;
+        flex-direction: column;
+    }
+}

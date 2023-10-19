@@ -26,7 +26,8 @@ const Products = memo(({ isCat = false }) => {
         delicious: 'Лакомства',
         other: 'Прочие товары',
     };
-    const paginate = usePaginate(filterGoods, 9);
+
+    const paginate = usePaginate(filterGoods, screenWidth);
 
     useEffect(() => {
         if (name === 'other') {
@@ -56,7 +57,12 @@ const Products = memo(({ isCat = false }) => {
                     {isCat && (
                         <Banner title={names[name] || name} main={false} bg='paws' pattern={true} />
                     )}
-                    <Layout mb={3} dt={4} fullHeight={true}>
+                    <Layout
+                        mb={screenWidth < 500 ? 1 : 3}
+                        dt={4}
+                        fullHeight={true}
+                        // style={screenWidth < 500 ? { display: 'block' } : { display: 'grid' }}
+                    >
                         <Layout>
                             <Filters
                                 goods={goods}

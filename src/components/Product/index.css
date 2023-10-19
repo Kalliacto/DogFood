@@ -109,22 +109,6 @@
     font-weight: bold;
 }
 
-/* @media screen and (max-width: 1064px) {
-    .product__img {
-        max-width: 550px;
-        width: 100%;
-    }
-    .container {
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        grid-column-end: span 2;
-    }
-    .container img {
-        align-self: center;
-    }
-} */
-
 @media screen and (min-width: 1064px) {
     .product__description {
         grid-column-end: span 2;

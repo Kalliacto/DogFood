@@ -3,6 +3,7 @@ import './Card.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { getEndings } from '../../utils/utils';
 import Utils from '../../context/utils';
+import { Context } from '../../context/context';
 
 const Card = ({ ...props }) => {
     const { name, discount, likes, pictures, price, reviews, stock, available, tags, _id } = {
@@ -11,8 +12,9 @@ const Card = ({ ...props }) => {
     const imgStyle = {
         backgroundImage: `url(${pictures})`,
     };
+    const { api, userId, setProducts } = useContext(Context);
     const { setPrice } = useContext(Utils);
-    const [isLike, setIsLike] = useState(likes.includes(3));
+    const isLike = likes.includes(userId);
     const [inBasket, setInBasket] = useState(false);
     const navigate = useNavigate();
     const tag = tags[tags.length - 1];
@@ -34,10 +36,12 @@ const Card = ({ ...props }) => {
         setInBasket(!inBasket);
     };
 
-    const likeHandler = (e) => {
+    const likeHandler = (e, id, isLike) => {
         e.preventDefault();
         e.stopPropagation();
-        setIsLike(!isLike);
+        api.setLike(id, isLike).then((data) => {
+            setProducts((state) => state.map((el) => (el._id === id ? data : el)));
+        });
     };
 
     return (
@@ -65,7 +69,7 @@ const Card = ({ ...props }) => {
                     {name.length >= 40 ? name.slice(0, 40) + '...' : name}
                 </span>
                 <span className='card__info'>
-                    <span>
+                    <span onClick={() => {}}>
                         <i className='lni lni-thumbs-up'>&#160;{likes?.length}</i>
                     </span>
                     {rate ? (
@@ -105,7 +109,7 @@ const Card = ({ ...props }) => {
                     </button>
                 )}
 
-                <button className='card__btn' onClick={likeHandler}>
+                <button className='card__btn' onClick={(e) => likeHandler(e, _id, isLike)}>
                     {isLike ? (
                         <i className='lni lni-heart-fill' />
                     ) : (

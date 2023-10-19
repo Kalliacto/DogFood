@@ -89,7 +89,7 @@ class Api {
 
     setLike(id, isLike) {
         return fetch(`${this.path}/products/likes/${id}`, {
-            method: isLike ? 'PUT' : 'DELETE',
+            method: isLike ? 'DELETE' : 'PUT',
             headers: this.setHeaders(),
         }).then((res) => this.checkRes(res));
     }

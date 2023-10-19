@@ -8,7 +8,7 @@ import Product from '../components/Product';
 const SingleProduct = () => {
     const { id } = useParams();
     const { api } = useContext(Context);
-    const [product, setProduct, userId] = useState({});
+    const [product, setProduct] = useState({});
 
     useEffect(() => {
         api.getProduct(id).then((data) => setProduct(data));

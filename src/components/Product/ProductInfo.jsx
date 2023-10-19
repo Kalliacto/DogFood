@@ -8,16 +8,15 @@ import { useNavigate } from 'react-router';
 const ProductInfo = ({ product, setProduct }) => {
     const { api, userId, setProducts } = useContext(Context);
     const { setPrice, setRating, setStars } = useContext(UtilsCtx);
-    const [isLike, setIsLike] = useState(product.likes.includes(userId));
-    const navigate = useNavigate();
     const [count, setCount] = useState(0);
+    const isLike = product.likes.includes(userId);
+    const navigate = useNavigate();
 
-    const handleLike = () => {
-        setIsLike(!isLike);
-        api.setLike(product._id, !isLike)
+    const likeHandler = () => {
+        api.setLike(product._id, isLike)
             .then((data) => {
-                setProduct(data);
                 setProducts((state) => state.map((el) => (el._id === product._id ? data : el)));
+                setProduct(data);
             })
             .catch((err) => console.log('Ooops: ' + err.message));
     };
@@ -43,7 +42,7 @@ const ProductInfo = ({ product, setProduct }) => {
                     &nbsp;
                     {product.likes.length}
                 </span>
-                <span className='product__heart' onClick={handleLike}>
+                <span className='product__heart' onClick={likeHandler}>
                     {isLike ? (
                         <i className='lni lni-heart-fill' />
                     ) : (
