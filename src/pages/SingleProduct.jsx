@@ -24,7 +24,11 @@ const SingleProduct = () => {
                     </div>
                     <Product.ProductInfo product={product} setProduct={setProduct} />
                     <Product.ProductDescription description={product.description} />
-                    <Product.ProductReviews reviews={product.reviews} />
+                    <Product.ProductReviews
+                        reviews={product.reviews}
+                        id={id}
+                        setProduct={setProduct}
+                    />
                 </Layout>
             ) : (
                 <Empty type='load' />

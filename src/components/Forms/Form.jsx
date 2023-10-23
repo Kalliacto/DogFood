@@ -73,7 +73,9 @@ const Form = ({ type, fieldsType, cb = () => {} }) => {
             {type === 'product' && (
                 <ProductForm fields={productFields} btnText='Добавить товар' cb={cb} />
             )}
-            {type === 'review' && <ReviewForm />}
+            {type === 'review' && (
+                <ReviewForm fields={reviewFields} btnText='Оставить отзыв' cb={cb} />
+            )}
         </>
     );
 };

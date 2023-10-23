@@ -35,7 +35,7 @@ const ProductInfo = ({ product, setProduct }) => {
                 )}
             </h3>
             <div className='product__rate'>
-                <span>{setStars(setRating(product, true))}</span>
+                <span className='product__stars'>{setStars(setRating(product, true))}</span>
                 <span>{product.reviews.length + getEndings(product.reviews.length, 'отзыв')}</span>
                 <span>
                     <i className='lni lni-thumbs-up' />

@@ -8,7 +8,6 @@ import { useSelector } from 'react-redux';
 import News from '../components/News/News';
 import Carousel from '../components/Carousel/Carousel';
 import Preloader from '../components/Preloader/Preloader';
-// import goodsData from '../assets/data/goods.json';
 import Card from '../components/Card/Card';
 import useResize from '../hooks/useResize';
 import { Context } from '../context/context';
@@ -62,8 +61,8 @@ const Home = () => {
             )}
 
             <Layout dt={2}>
-                <Adds {...addsData[getNumber(addsData.length)]} />
-                <Adds {...addsData[getNumber(addsData.length)]} />
+                <Adds {...addsData[2]} />
+                <Adds {...addsData[1]} />
             </Layout>
             {!!newsLenta?.length ? (
                 <Layout mb={1} dt={2} title={'Новости пёселей Lenta.ru'}>
@@ -96,7 +95,7 @@ const Home = () => {
             )}
 
             <Layout>
-                <Adds {...addsData[5]} />
+                <Adds {...addsData[getNumber(addsData.length)]} />
             </Layout>
             {userId ? (
                 <>
