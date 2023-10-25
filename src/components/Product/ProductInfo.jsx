@@ -4,13 +4,17 @@ import { getEndings, changeEnds, checkingEnd, stockAvailability } from '../../ut
 import UtilsCtx from '../../context/utils';
 import { Context } from '../../context/context';
 import { useNavigate } from 'react-router';
+import { addBasketProduct, removeBasketProduct } from '../../store/slices/basketSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ProductInfo = ({ product, setProduct }) => {
     const { api, userId, setProducts } = useContext(Context);
     const { setPrice, setRating, setStars } = useContext(UtilsCtx);
-    const [count, setCount] = useState(0);
     const isLike = product.likes.includes(userId);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { basketProducts } = useSelector((s) => s.basket);
+    let productCount = basketProducts.filter((el) => el.product._id === product._id);
 
     const likeHandler = () => {
         api.setLike(product._id, isLike)
@@ -79,22 +83,24 @@ const ProductInfo = ({ product, setProduct }) => {
             </table>
 
             <div className='product__btns'>
-                {count ? (
+                {!!productCount.length ? (
                     <>
                         <button className='product__btn' onClick={() => navigate('/basket')}>
                             Перейти в корзину
                         </button>
                         <button
                             className='product__btn product__btn_square'
-                            onClick={() => setCount(count - 1)}
+                            onClick={() => dispatch(removeBasketProduct({ product, count: 1 }))}
                         >
                             -
                         </button>
-                        <span className='product__count'>{count}</span>
+                        <span className='product__count'>{productCount.map((el) => el.count)}</span>
                         <button
                             className='product__btn product__btn_square'
-                            disabled={count >= product.stock}
-                            onClick={() => setCount(count + 1)}
+                            disabled={productCount.map((el) => el.count >= product.stock)}
+                            onClick={() => {
+                                dispatch(addBasketProduct({ product, count: 1 }));
+                            }}
                         >
                             +
                         </button>
@@ -103,7 +109,7 @@ const ProductInfo = ({ product, setProduct }) => {
                     <button
                         className='product__btn'
                         disabled={product.stock === 0 || !product.available}
-                        onClick={() => setCount(count + 1)}
+                        onClick={() => dispatch(addBasketProduct({ product: product, count: 1 }))}
                     >
                         Купить
                     </button>

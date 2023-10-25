@@ -54,10 +54,10 @@ const ProductReviews = ({ reviews, id, setProduct }) => {
             <Layout dt={4} mb={2}>
                 {!!reviews.length ? (
                     reviews.slice(0, reviewsCount).map((el) => (
-                        <div className='review'>
+                        <div className='review' key={el._id}>
                             {userId === el.author._id && (
                                 <div className='review__pen' onClick={() => delReview(el._id)}>
-                                    <i class='lni lni-pencil'></i>
+                                    <i className='lni lni-pencil'></i>
                                 </div>
                             )}
 

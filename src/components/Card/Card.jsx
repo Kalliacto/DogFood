@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getEndings } from '../../utils/utils';
 import Utils from '../../context/utils';
 import { Context } from '../../context/context';
+import { useDispatch, useSelector } from 'react-redux';
+import { addBasketProduct } from '../../store/slices/basketSlice';
 
 const Card = ({ ...props }) => {
     const { name, discount, likes, pictures, price, reviews, stock, available, tags, _id } = {
@@ -15,7 +17,8 @@ const Card = ({ ...props }) => {
     const { api, userId, setProducts } = useContext(Context);
     const { setPrice } = useContext(Utils);
     const isLike = likes.includes(userId);
-    const [inBasket, setInBasket] = useState(false);
+    const { basketProducts } = useSelector((s) => s.basket);
+    let inBasket = basketProducts.filter((el) => el.product._id === _id).length;
     const navigate = useNavigate();
     const tag = tags[tags.length - 1];
     const rate = reviews?.length
@@ -23,6 +26,7 @@ const Card = ({ ...props }) => {
               reviews.reduce((acc, value) => Math.round(acc + value.rating), 0) / reviews.length
           ).toFixed(1)
         : '0';
+    const dispatch = useDispatch();
 
     const tagHandler = (e) => {
         e.preventDefault();
@@ -30,10 +34,16 @@ const Card = ({ ...props }) => {
         navigate(`/products/category/${tag}`);
     };
 
-    const basketHandler = (e) => {
+    const basketHandler = (e, product) => {
         e.preventDefault();
         e.stopPropagation();
-        setInBasket(!inBasket);
+        dispatch(addBasketProduct({ product, count: 1 }));
+    };
+
+    const toBasket = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        navigate('/basket');
     };
 
     const likeHandler = (e, id, isLike) => {
@@ -99,12 +109,16 @@ const Card = ({ ...props }) => {
                 </span>
             </span>
             <span className='card__buttons'>
-                {inBasket ? (
-                    <button className='card__btn card__btn_basket' onClick={basketHandler}>
-                        <i className='lni lni-cart-full' />В корзине
+                {!!inBasket ? (
+                    <button className='card__btn card__btn_basket' onClick={(e) => toBasket(e)}>
+                        <i className='lni lni-cart-full' />
+                        Уже в корзинe
                     </button>
                 ) : (
-                    <button className='card__btn card__btn_basket' onClick={basketHandler}>
+                    <button
+                        className='card__btn card__btn_basket'
+                        onClick={(e) => basketHandler(e, props)}
+                    >
                         <i className='lni lni-cart' />В корзину
                     </button>
                 )}
