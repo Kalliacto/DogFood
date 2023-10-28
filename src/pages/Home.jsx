@@ -80,7 +80,7 @@ const Home = () => {
 
             {userId ? (
                 <>
-                    {!!products.length && (
+                    {!!productsInLocal.length && (
                         // TODO: Сделать фильтрацию просмотренного
                         <Layout mb={2} dt={4} title='Недавно просмотренные'>
                             {productsInLocal
