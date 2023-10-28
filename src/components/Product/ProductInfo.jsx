@@ -97,7 +97,7 @@ const ProductInfo = ({ product, setProduct }) => {
                         <span className='product__count'>{productCount.map((el) => el.count)}</span>
                         <button
                             className='product__btn product__btn_square'
-                            disabled={productCount.map((el) => el.count >= product.stock)}
+                            disabled={productCount.filter((el) => el.count >= product.stock).length}
                             onClick={() => {
                                 dispatch(addBasketProduct({ product, count: 1 }));
                             }}

@@ -4,14 +4,20 @@ import { useParams } from 'react-router';
 import { Context } from '../context/context';
 import Empty from '../components/Empty/Empty';
 import Product from '../components/Product';
+import { useDispatch } from 'react-redux';
+import { addProductsInLocal } from '../store/slices/viewed';
 
 const SingleProduct = () => {
     const { id } = useParams();
     const { api } = useContext(Context);
     const [product, setProduct] = useState({});
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        api.getProduct(id).then((data) => setProduct(data));
+        api.getProduct(id).then((data) => {
+            setProduct(data);
+            dispatch(addProductsInLocal(data));
+        });
     }, [id]);
 
     return (

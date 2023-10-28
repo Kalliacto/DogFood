@@ -19,6 +19,7 @@ const Home = () => {
     const { news, newsLenta } = useSelector((s) => s.news);
     const { products, userId } = useContext(Context);
     const { getNumber, sortProducts } = useContext(UtilsCtx);
+    const { productsInLocal } = useSelector((s) => s.viewed);
 
     const favGoods = sortProducts(products)
         .byPopular('down', true)
@@ -82,7 +83,7 @@ const Home = () => {
                     {!!products.length && (
                         // TODO: Сделать фильтрацию просмотренного
                         <Layout mb={2} dt={4} title='Недавно просмотренные'>
-                            {products
+                            {productsInLocal
                                 .map((el) => {
                                     return <Card key={el._id} {...el} />;
                                 })
