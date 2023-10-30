@@ -206,8 +206,8 @@ export const initialValue = {
     sortProducts: (arr) => new GoodsSort(arr),
     getUniqueAuthors: (arr) =>
         arr.reduce((acc, el) => {
-            if (!acc.includes(el.author._id)) {
-                acc.push(el.author._id);
+            if (!acc.filter((accEl) => accEl._id === el.author._id).length) {
+                acc.push(el.author);
             }
             return acc;
         }, []),
@@ -242,6 +242,19 @@ export const initialValue = {
             i++;
         }
         return stars;
+    },
+    setCntWord: (n, w0 = 'отзывов', w1 = 'отзыв', w2 = 'отзыва') => {
+        if (n % 100 < 11 || n % 100 > 14) {
+            if (n % 10 === 1) {
+                return w1;
+            } else if (n % 10 >= 2 && n % 10 <= 4) {
+                return w2;
+            } else {
+                return w0;
+            }
+        } else {
+            return w0;
+        }
     },
 };
 

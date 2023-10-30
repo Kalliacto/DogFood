@@ -10,6 +10,7 @@ import Pagination from '../components/Pagination/Pagination';
 import useResize from '../hooks/useResize';
 import Filters from '../components/Filters/Filters';
 import Empty from '../components/Empty/Empty';
+import Sort from '../components/Sort/Sort';
 
 // TODO: фильтры по цене продумать
 const Products = memo(({ isCat = false }) => {
@@ -19,6 +20,7 @@ const Products = memo(({ isCat = false }) => {
     const { filterProducts, sortProducts } = useContext(UtilsCtx);
     const [goods, setGoods] = useState([]);
     const [filterGoods, setFilterGoods] = useState([]); //Результат после фильтрации
+    const [sortGoods, setSortGoods] = useState([]);
 
     const names = {
         outerwear: 'Одежда',
@@ -27,7 +29,7 @@ const Products = memo(({ isCat = false }) => {
         other: 'Прочие товары',
     };
 
-    const paginate = usePaginate(filterGoods, screenWidth);
+    const paginate = usePaginate(sortGoods, screenWidth);
 
     useEffect(() => {
         if (name === 'other') {
@@ -48,6 +50,7 @@ const Products = memo(({ isCat = false }) => {
 
     useEffect(() => {
         paginate.step(1);
+        setSortGoods([...sortProducts(filterGoods).byDate().data]);
     }, [filterGoods]);
 
     return (
@@ -77,7 +80,8 @@ const Products = memo(({ isCat = false }) => {
                                     : { gridColumnEnd: 'span 2' }
                             }
                         >
-                            {filterGoods?.length > 0 ? (
+                            <Sort setState={setSortGoods} filterGoods={filterGoods} />
+                            {sortGoods?.length > 0 ? (
                                 <>
                                     <Layout mb={1} dt={3}>
                                         {paginate.getPage().map((el) => (

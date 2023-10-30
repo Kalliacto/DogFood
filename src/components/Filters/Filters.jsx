@@ -197,15 +197,15 @@ const Filters = ({ goods, filterGoods, setFilterGoods }) => {
                         {authors.map((el) => {
                             return (
                                 <li
+                                    key={el._id}
                                     className={`filter__content_line ${
-                                        filterAuthors.includes(el)
+                                        filterAuthors.includes(el._id)
                                             ? 'filter__content_line_active'
                                             : ''
                                     }`}
-                                    onClick={() => authorsHandler(el)}
-                                    key={el}
+                                    onClick={() => authorsHandler(el._id)}
                                 >
-                                    {el}
+                                    {el.name}
                                 </li>
                             );
                         })}

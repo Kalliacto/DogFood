@@ -18,7 +18,7 @@ const viewedProductsSlice = createSlice({
                 state.productsInLocal.push(action.payload);
             } else {
                 if (!state.productsInLocal.find((el) => el._id === action.payload._id)) {
-                    if (state.productsInLocal.length < 10) {
+                    if (state.productsInLocal.length < 4) {
                         state.productsInLocal.push(action.payload);
                     } else {
                         state.productsInLocal.shift();
