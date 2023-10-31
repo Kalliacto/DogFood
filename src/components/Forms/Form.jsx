@@ -11,11 +11,9 @@ import ProductForm from './forms/ProductForm';
 import ReviewForm from './forms/ReviewForm';
 import Switch from './fields/Switch';
 import Tag from './fields/Tag';
+import UserInfoForm from './forms/UserInfoForm';
 
-// TODO: компонент с чекбокс
-// TODO: компонент с тегами
-
-const Form = ({ type, fieldsType, cb = () => {} }) => {
+const Form = ({ type, fieldsType, cb = () => {}, setUserInfo = false }) => {
     const authFields = ['email', 'password'];
     const reqFields = ['email', 'name', 'avatar', 'about', 'password'];
     const pwdFields = ['email', 'token', 'password'];
@@ -32,6 +30,7 @@ const Form = ({ type, fieldsType, cb = () => {} }) => {
         'isPublished',
     ];
     const reviewFields = ['rating', 'text'];
+    const userFields = ['name', 'about', 'avatar'];
 
     return (
         <>
@@ -76,6 +75,9 @@ const Form = ({ type, fieldsType, cb = () => {} }) => {
             {type === 'review' && (
                 <ReviewForm fields={reviewFields} btnText='Оставить отзыв' cb={cb} />
             )}
+            {type === 'userInfo' && (
+                <UserInfoForm fields={userFields} btnText='Сохранить изменения' cb={cb} />
+            )}
         </>
     );
 };
@@ -92,5 +94,6 @@ export {
     ProductForm,
     Switch,
     Tag,
+    UserInfoForm,
 };
 export default Form;

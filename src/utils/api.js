@@ -171,8 +171,16 @@ class Api {
     //     }).then((res) => this.checkRes(res));
     // }
 
-    updateProfile(body, isAvatar = false) {
-        return fetch(`${this.path}/users/me${isAvatar ? '/avatar' : ''}`, {
+    updateProfile(body) {
+        console.log(body);
+        return fetch(`${this.path}/users/me`, {
+            method: 'PATCH',
+            headers: this.setHeaders(true),
+            body: this.setBody(body),
+        }).then((res) => this.checkRes(res));
+    }
+    updateProfileAvatar(body) {
+        return fetch(`${this.path}/users/me/avatar`, {
             method: 'PATCH',
             headers: this.setHeaders(true),
             body: this.setBody(body),
