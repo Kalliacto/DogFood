@@ -1,11 +1,8 @@
 import React from 'react';
+import Empty from '../components/Empty/Empty';
 
 const NotFoundPage = (props) => {
-    return (
-        <div>
-            <p>NotFoundPage</p>
-        </div>
-    );
+    return <Empty type='404' />;
 };
 
 export { NotFoundPage };

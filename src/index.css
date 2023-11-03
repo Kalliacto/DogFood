@@ -67,3 +67,7 @@ ul {
 button {
     cursor: pointer;
 }
+th,
+td {
+    text-align: left;
+}

@@ -47,7 +47,7 @@ const useProductState = () => {
 };
 
 const useReviewState = () => {
-    const rating = useState(0);
+    const rating = useState(1);
     const text = useState('');
     const name = useState('Отзыв о товаре');
     const city = useState('DogLand');
@@ -60,6 +60,18 @@ const useReviewState = () => {
     };
 };
 
+const useUserInfoState = () => {
+    const about = useState('');
+    const avatar = useState('');
+    const name = useState('');
+
+    return {
+        name,
+        about,
+        avatar,
+    };
+};
+
 const useFormState = (type) => {
     switch (type) {
         case 'user':
@@ -68,6 +80,8 @@ const useFormState = (type) => {
             return useProductState;
         case 'review':
             return useReviewState;
+        case 'userInfo':
+            return useUserInfoState;
         default:
             return {};
     }

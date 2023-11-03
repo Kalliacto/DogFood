@@ -53,6 +53,7 @@
 .header__btn_active + .nav {
     display: flex;
     transform: translate(0, 0);
+    z-index: 20;
 }
 @media screen and (min-width: 1064px) {
     .header .form__row_search {

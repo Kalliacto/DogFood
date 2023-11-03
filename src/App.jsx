@@ -13,6 +13,7 @@ import {
     SingleProduct,
     FAQ,
     NotFoundPage,
+    Favorites,
 } from './pages';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,11 +25,11 @@ import {
 } from './store/slices/newsSlice';
 import staticNews from './assets/data/news.json';
 import staticNewsLenta from './assets/data/newslenta.json';
+import blackList from './assets/data/blackList.json';
 import Api from './utils/api';
 import { Context } from './context/context';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
-import { filterCards } from './utils/utils';
 import Utils, { initialValue as utilsValue } from './context/utils';
 
 function App() {
@@ -46,7 +47,32 @@ function App() {
     useEffect(() => {
         if (token) {
             api.getProducts().then((data) => {
-                setProducts(filterCards(data.products, userId));
+                // setProducts(filterCards(data.products, userId)); старая фильтрация по 2м авторам
+                let arr = [...data.products];
+                let changes = blackList.changeTags;
+                let changesNames = Object.keys(changes);
+                arr = arr.map((el) => {
+                    let hasTag = changesNames.filter((name) => el.tags.includes(name));
+                    hasTag.forEach((name) => {
+                        el.tags = el.tags.reduce((acc, tg) => {
+                            if (tg === name && !acc.includes(changes[name])) {
+                                acc.push(changes[name]);
+                            } else if (tg !== name) {
+                                acc.push(tg);
+                            }
+                            return acc;
+                        }, []);
+                    });
+                    return el;
+                });
+
+                blackList.authors.forEach((el) => {
+                    arr = utilsValue.filterProducts(arr).byAuthor(el, false).data;
+                });
+                arr = utilsValue.filterProducts(arr).byTag(blackList.tags, false).data;
+                arr = utilsValue.filterProducts(arr).byId(blackList.goods, false).data;
+
+                setProducts(arr);
             });
         } else {
             setProducts([]);
@@ -94,7 +120,7 @@ function App() {
                                 path='/products/category/:name'
                                 element={<Products isCat={true} />}
                             />
-                            <Route path='/products/favorites' element={<Products isFav={true} />} />
+                            <Route path='/products/favorites' element={<Favorites />} />
                             <Route path='/product/:id' element={<SingleProduct />} />
                             <Route path='/product/add' element={<AddProduct />} />
                             <Route path='/basket' element={<Basket />} />

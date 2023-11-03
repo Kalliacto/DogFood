@@ -8,32 +8,26 @@ import { useSelector } from 'react-redux';
 import News from '../components/News/News';
 import Carousel from '../components/Carousel/Carousel';
 import Preloader from '../components/Preloader/Preloader';
-// import goodsData from '../assets/data/goods.json';
 import Card from '../components/Card/Card';
 import useResize from '../hooks/useResize';
 import { Context } from '../context/context';
-import UtilCtx from '../context/utils';
+import Empty from '../components/Empty/Empty';
+import UtilsCtx from '../context/utils';
 
 const Home = () => {
     const screenWidth = useResize(window.innerWidth);
     const { news, newsLenta } = useSelector((s) => s.news);
     const { products, userId } = useContext(Context);
-    const { getNumber } = useContext(UtilCtx);
+    const { getNumber, sortProducts } = useContext(UtilsCtx);
+    const { productsInLocal } = useSelector((s) => s.viewed);
 
-    const favGoods = products
-        .filter((el) => el.reviews.length > 0)
-        .sort((a, b) => {
-            const sumA = a.reviews.reduce((acc, value) => acc + value.rating, 0) / a.reviews.length;
-            const sumB = b.reviews.reduce((acc, value) => acc + value.rating, 0) / b.reviews.length;
-            return sumB - sumA;
-        })
-        .slice(0, screenWidth < 1064 ? 2 : 4);
+    const favGoods = sortProducts(products)
+        .byPopular('down', true)
+        .data.slice(0, screenWidth < 1064 ? 2 : 4);
 
-    const newGoods = [...products]
-        .sort((a, b) => {
-            return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
-        })
-        .slice(0, screenWidth < 1064 ? 2 : 4);
+    const newGoods = sortProducts(products)
+        .byDate()
+        .data.slice(0, screenWidth < 1064 ? 2 : 4);
 
     return (
         <>
@@ -53,16 +47,23 @@ const Home = () => {
             ) : (
                 <Preloader />
             )}
-            {!!newGoods.length && (
-                <Layout mb={2} dt={4} title='Наши новинки'>
-                    {newGoods.map((el) => {
-                        return <Card key={el._id} {...el} />;
-                    })}
-                </Layout>
+            {userId ? (
+                <>
+                    {!!newGoods.length && (
+                        <Layout mb={2} dt={4} title='Наши новинки'>
+                            {newGoods.map((el) => {
+                                return <Card key={el._id} {...el} />;
+                            })}
+                        </Layout>
+                    )}
+                </>
+            ) : (
+                <Empty type='no-user' />
             )}
+
             <Layout dt={2}>
-                <Adds {...addsData[getNumber(addsData.length)]} />
-                <Adds {...addsData[getNumber(addsData.length)]} />
+                <Adds {...addsData[2]} />
+                <Adds {...addsData[1]} />
             </Layout>
             {!!newsLenta?.length ? (
                 <Layout mb={1} dt={2} title={'Новости пёселей Lenta.ru'}>
@@ -76,26 +77,39 @@ const Home = () => {
             ) : (
                 <Preloader />
             )}
-            {!!products.length && (
-                // TODO: Сделать фильтрацию просмотренного
-                <Layout mb={2} dt={4} title='Недавно просмотренные'>
-                    {products
-                        .map((el) => {
-                            return <Card key={el._id} {...el} />;
-                        })
-                        .slice(0, screenWidth < 1064 ? 2 : 4)}
-                </Layout>
-            )}
-            <Layout>
-                <Adds {...addsData[5]} />
-            </Layout>
 
-            {!!favGoods.length && (
-                <Layout mb={2} dt={4} title='Популярные товары'>
-                    {favGoods.map((el) => {
-                        return <Card key={el._id} {...el} />;
-                    })}
-                </Layout>
+            {userId ? (
+                <>
+                    {/* TODO: Доработать изменение лайка в просмотренных товарах */}
+                    {!!productsInLocal.length && (
+                        <Layout mb={2} dt={4} title='Недавно просмотренные'>
+                            {productsInLocal
+                                .map((el) => {
+                                    return <Card key={el._id} {...el} />;
+                                })
+                                .slice(0, screenWidth < 1064 ? 2 : 4)}
+                        </Layout>
+                    )}
+                </>
+            ) : (
+                <Empty type='no-user' />
+            )}
+
+            <Layout>
+                <Adds {...addsData[getNumber(addsData.length)]} />
+            </Layout>
+            {userId ? (
+                <>
+                    {!!favGoods.length && (
+                        <Layout mb={2} dt={4} title='Популярные товары'>
+                            {favGoods.map((el) => {
+                                return <Card key={el._id} {...el} />;
+                            })}
+                        </Layout>
+                    )}
+                </>
+            ) : (
+                <Empty type='no-user' />
             )}
         </>
     );

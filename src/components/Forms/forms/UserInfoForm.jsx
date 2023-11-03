@@ -3,9 +3,9 @@ import formData from '../../../assets/data/form.json';
 import useFormState from '../../../hooks/useFormState';
 import { renderTags } from '../utils';
 
-const ReviewForm = ({ fields, btnText, cb = () => {} }) => {
-    const data = formData.review;
-    const states = useFormState('review')();
+const UserInfoForm = ({ fields, btnText, cb = () => {} }) => {
+    const data = formData.userInfo;
+    const states = useFormState('userInfo')();
 
     const formHandler = (e) => {
         e.preventDefault();
@@ -26,4 +26,4 @@ const ReviewForm = ({ fields, btnText, cb = () => {} }) => {
     );
 };
 
-export default ReviewForm;
+export default UserInfoForm;

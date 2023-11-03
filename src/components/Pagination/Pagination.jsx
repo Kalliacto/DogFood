@@ -16,7 +16,7 @@ const Pagination = ({ hook }) => {
                 onClick={() => hook.previousPage()}
                 disabled={hook.page === 1}
             >
-                <i class='lni lni-chevron-left' />
+                <i className='lni lni-chevron-left' />
             </button>
             {hook.page > 2 && '...'}
             {hook.page > 1 && (
@@ -37,14 +37,14 @@ const Pagination = ({ hook }) => {
                 onClick={() => hook.nextPage()}
                 disabled={hook.maxPage === hook.page}
             >
-                <i class='lni lni-chevron-right' />
+                <i className='lni lni-chevron-right' />
             </button>
             <button
                 className='pagination__btn'
                 disabled={hook.maxPage === hook.page}
                 onClick={() => hook.endPage()}
             >
-                <i class='lni lni-angle-double-right' />
+                <i className='lni lni-angle-double-right' />
             </button>
         </div>
     );

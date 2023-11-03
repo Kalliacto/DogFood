@@ -1,0 +1,54 @@
+.filter {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.filter__item {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    font-size: 1.8rem;
+    opacity: 0.8;
+}
+.filter__title {
+    font-size: 2rem;
+}
+
+.filter__price {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.filter__price .form__row {
+    gap: 0;
+}
+
+.filter__content {
+    padding: 1rem;
+    border: 1px solid #ffd657;
+    border-radius: 1rem;
+    overflow-y: auto;
+    max-height: 30rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.filter__content_line {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.filter__content_line:hover {
+    opacity: 1;
+}
+.filter__content_line_active {
+    font-weight: 600;
+    opacity: 1;
+}
+
+.filter__btn {
+    border-radius: 1rem;
+    background-color: #ffd657;
+}
