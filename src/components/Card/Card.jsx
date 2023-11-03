@@ -125,9 +125,9 @@ const Card = ({ ...props }) => {
 
                 <button className='card__btn' onClick={(e) => likeHandler(e, _id, isLike)}>
                     {isLike ? (
-                        <i className='lni lni-heart-fill' />
+                        <i className='lni lni-heart-fill heart' />
                     ) : (
-                        <i className='lni lni-heart' />
+                        <i className='lni lni-heart heart' />
                     )}
                 </button>
             </span>

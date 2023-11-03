@@ -6,6 +6,8 @@ import { Context } from '../../context/context';
 import { useNavigate } from 'react-router';
 import { addBasketProduct, removeBasketProduct } from '../../store/slices/basketSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import Adds from '../Adds/Adds';
+import addsData from '../../assets/data/adds.json';
 
 const ProductInfo = ({ product, setProduct }) => {
     const { api, userId, setProducts } = useContext(Context);
@@ -15,6 +17,7 @@ const ProductInfo = ({ product, setProduct }) => {
     const dispatch = useDispatch();
     const { basketProducts } = useSelector((s) => s.basket);
     let productCount = basketProducts.filter((el) => el.product._id === product._id);
+    const { getNumber } = useContext(UtilsCtx);
 
     const likeHandler = () => {
         api.setLike(product._id, isLike)
@@ -48,9 +51,9 @@ const ProductInfo = ({ product, setProduct }) => {
                 </span>
                 <span className='product__heart' onClick={likeHandler}>
                     {isLike ? (
-                        <i className='lni lni-heart-fill' />
+                        <i className='lni lni-heart-fill heart' />
                     ) : (
-                        <i className='lni lni-heart' />
+                        <i className='lni lni-heart heart' />
                     )}
                 </span>
             </div>
@@ -115,6 +118,7 @@ const ProductInfo = ({ product, setProduct }) => {
                     </button>
                 )}
             </div>
+            <Adds {...addsData[getNumber(addsData.length)]} />
         </div>
     );
 };

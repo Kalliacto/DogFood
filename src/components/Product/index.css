@@ -31,7 +31,7 @@
 .product__info {
     display: grid;
     gap: 2rem;
-    align-content: flex-start;
+    align-content: stretch;
 }
 
 .product__price {
@@ -70,6 +70,10 @@
 }
 .product__heart {
     cursor: pointer;
+}
+
+.product__heart .heart {
+    color: crimson;
 }
 
 .product__table {

@@ -80,6 +80,7 @@ const Home = () => {
 
             {userId ? (
                 <>
+                    {/* TODO: Доработать изменение лайка в просмотренных товарах */}
                     {!!productsInLocal.length && (
                         <Layout mb={2} dt={4} title='Недавно просмотренные'>
                             {productsInLocal

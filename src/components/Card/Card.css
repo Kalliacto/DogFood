@@ -79,6 +79,10 @@
 .card button:hover {
     opacity: 1;
 }
+.card__btn .heart {
+    color: crimson;
+}
+
 .card__buttons {
     display: flex;
     gap: 1rem;

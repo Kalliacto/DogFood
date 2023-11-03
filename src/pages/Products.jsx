@@ -20,7 +20,6 @@ const Products = memo(({ isCat = false }) => {
     const { filterProducts, sortProducts } = useContext(UtilsCtx);
     const [goods, setGoods] = useState([]);
     const [filterGoods, setFilterGoods] = useState([]); //Результат после фильтрации
-    const [sortGoods, setSortGoods] = useState([]);
 
     const names = {
         outerwear: 'Одежда',
@@ -29,7 +28,7 @@ const Products = memo(({ isCat = false }) => {
         other: 'Прочие товары',
     };
 
-    const paginate = usePaginate(sortGoods, screenWidth);
+    const paginate = usePaginate(filterGoods, screenWidth);
 
     useEffect(() => {
         if (name === 'other') {
@@ -50,7 +49,6 @@ const Products = memo(({ isCat = false }) => {
 
     useEffect(() => {
         paginate.step(1);
-        setSortGoods([...sortProducts(filterGoods).byDate().data]);
     }, [filterGoods]);
 
     return (
@@ -80,8 +78,8 @@ const Products = memo(({ isCat = false }) => {
                                     : { gridColumnEnd: 'span 2' }
                             }
                         >
-                            <Sort setState={setSortGoods} filterGoods={filterGoods} />
-                            {sortGoods?.length > 0 ? (
+                            <Sort setState={setFilterGoods} filterGoods={filterGoods} />
+                            {filterGoods?.length > 0 ? (
                                 <>
                                     <Layout mb={1} dt={3}>
                                         {paginate.getPage().map((el) => (

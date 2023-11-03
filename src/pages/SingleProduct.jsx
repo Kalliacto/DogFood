@@ -6,12 +6,16 @@ import Empty from '../components/Empty/Empty';
 import Product from '../components/Product';
 import { useDispatch } from 'react-redux';
 import { addProductsInLocal } from '../store/slices/viewed';
+import Adds from '../components/Adds/Adds';
+import addsData from '../assets/data/adds.json';
+import UtilsCtx from '../context/utils';
 
 const SingleProduct = () => {
     const { id } = useParams();
     const { api } = useContext(Context);
     const [product, setProduct] = useState({});
     const dispatch = useDispatch();
+    const { getNumber } = useContext(UtilsCtx);
 
     useEffect(() => {
         api.getProduct(id).then((data) => {
@@ -30,6 +34,9 @@ const SingleProduct = () => {
                     </div>
                     <Product.ProductInfo product={product} setProduct={setProduct} />
                     <Product.ProductDescription description={product.description} />
+                    <Adds {...addsData[getNumber(addsData.length)]} />
+                    <Adds {...addsData[getNumber(addsData.length)]} />
+
                     <Product.ProductReviews
                         reviews={product.reviews}
                         id={id}

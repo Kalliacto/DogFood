@@ -8,30 +8,32 @@ const Sort = ({ setState, filterGoods }) => {
     const [sortPrice, setSortPrice] = useState(0);
     const [sortDiscount, setSortDiscount] = useState(0);
     const [sortPopular, setSortPopular] = useState(0);
+    const [sort, setSort] = useState(sortProducts(filterGoods));
 
     useEffect(() => {
-        setState((state) => [...sortProducts(state).byDate().data]);
+        sort.byDate();
+
         if (sortName) {
-            setState((state) => [
-                ...sortProducts(state).byName(sortName === 1 ? 'up' : 'down').data,
-            ]);
+            sort.byName(sortName === 1 ? 'up' : 'down');
         }
         if (sortPopular) {
-            setState((state) => [
-                ...sortProducts(state).byPopular(sortPopular === 1 ? 'down' : 'up', true).data,
-            ]);
+            sort.byPopular(sortPopular === 1 ? 'down' : 'up', true);
         }
         if (sortPrice) {
-            setState((state) => [
-                ...sortProducts(state).byPrice(sortPrice === 1 ? 'up' : 'down').data,
-            ]);
+            sort.byPrice(sortPrice === 1 ? 'up' : 'down');
         }
         if (sortDiscount) {
-            setState((state) => [
-                ...sortProducts(state).byDiscount(sortDiscount === 1 ? 'down' : 'up').data,
-            ]);
+            sort.byDiscount(sortDiscount === 1 ? 'down' : 'up');
         }
-    }, [sortName, sortPrice, sortDiscount, sortPopular, filterGoods]);
+
+        setState([...sort.data]);
+    }, [sortName, sortPrice, sortDiscount, sortPopular, sort.data]);
+
+    useEffect(() => {
+        if (filterGoods.length !== sort.data.length) {
+            setSort(sortProducts(filterGoods).byDate());
+        }
+    }, [filterGoods]);
 
     return (
         <div className='sort'>
