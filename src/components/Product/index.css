@@ -143,12 +143,6 @@
     background-size: cover;
     background-color: silver;
 }
-.review__author {
-}
-
-.review__rate {
-}
-
 .review__date {
     grid-column-end: span 2;
     color: gray;
