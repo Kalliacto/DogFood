@@ -27,7 +27,6 @@ const Tag = ({ name, label, attr, state }) => {
         setVal('');
     };
     const delTag = (tag) => {
-        console.log(state[1]);
         state[1]((prev) => prev.filter((el) => el !== tag));
     };
 

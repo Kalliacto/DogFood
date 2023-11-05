@@ -8,9 +8,10 @@ import { addBasketProduct, removeBasketProduct } from '../../store/slices/basket
 import { useDispatch, useSelector } from 'react-redux';
 import Adds from '../Adds/Adds';
 import addsData from '../../assets/data/adds.json';
+import { updateProductsInLocalLike } from '../../store/slices/viewed';
 
 const ProductInfo = ({ product, setProduct }) => {
-    const { api, userId, setProducts } = useContext(Context);
+    const { api, userId, setProducts, setFavorite } = useContext(Context);
     const { setPrice, setRating, setStars } = useContext(UtilsCtx);
     const isLike = product.likes.includes(userId);
     const navigate = useNavigate();
@@ -24,6 +25,12 @@ const ProductInfo = ({ product, setProduct }) => {
             .then((data) => {
                 setProducts((state) => state.map((el) => (el._id === product._id ? data : el)));
                 setProduct(data);
+                if (isLike) {
+                    setFavorite((state) => state?.filter((el) => el._id !== data._id));
+                } else {
+                    setFavorite((state) => [...state, data]);
+                }
+                dispatch(updateProductsInLocalLike(data));
             })
             .catch((err) => console.log('Ooops: ' + err.message));
     };

@@ -53,6 +53,12 @@
             "visibility": "user"
         },
         {
+            "path": "/products/favorites",
+            "imgType": "icon",
+            "imgPath": "lni lni-heart-fill heart",
+            "visibility": "user"
+        },
+        {
             "path": "/profile",
             "imgType": "icon",
             "imgPath": "lni lni-user",

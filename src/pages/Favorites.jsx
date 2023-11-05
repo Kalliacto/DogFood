@@ -1,14 +1,25 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Layout from '../components/Layout/Layout';
 import Empty from '../components/Empty/Empty';
+import { Context } from '../context/context';
+import { getEndings } from '../utils/utils';
+import Card from '../components/Card/Card';
 
-const Favorites = (props) => {
-    const [favorites, setFavorites] = useState([]);
+const Favorites = () => {
+    const { favorite } = useContext(Context);
+
     return (
         <>
-            {!!favorites.length ? (
+            {!!favorite?.length ? (
                 <Layout>
-                    <h2>Любимые товары</h2>
+                    <h1>
+                        В избранном {favorite.length} {getEndings(favorite.length, 'товар')}
+                    </h1>
+                    <Layout md={2} dt={4}>
+                        {favorite.map((el) => (
+                            <Card key={el._id} {...el} />
+                        ))}
+                    </Layout>
                 </Layout>
             ) : (
                 <Empty type='favorite' />

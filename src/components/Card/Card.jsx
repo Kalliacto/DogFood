@@ -1,11 +1,12 @@
 import React, { useContext, useState } from 'react';
 import './Card.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { getEndings } from '../../utils/utils';
+import { findFavorite, getEndings } from '../../utils/utils';
 import Utils from '../../context/utils';
 import { Context } from '../../context/context';
 import { useDispatch, useSelector } from 'react-redux';
 import { addBasketProduct } from '../../store/slices/basketSlice';
+import { updateProductsInLocalLike } from '../../store/slices/viewed';
 
 const Card = ({ ...props }) => {
     const { name, discount, likes, pictures, price, reviews, stock, available, tags, _id } = {
@@ -14,7 +15,7 @@ const Card = ({ ...props }) => {
     const imgStyle = {
         backgroundImage: `url(${pictures})`,
     };
-    const { api, userId, setProducts } = useContext(Context);
+    const { api, userId, setProducts, setFavorite } = useContext(Context);
     const { setPrice } = useContext(Utils);
     const isLike = likes.includes(userId);
     const { basketProducts } = useSelector((s) => s.basket);
@@ -49,9 +50,17 @@ const Card = ({ ...props }) => {
     const likeHandler = (e, id, isLike) => {
         e.preventDefault();
         e.stopPropagation();
-        api.setLike(id, isLike).then((data) => {
-            setProducts((state) => state.map((el) => (el._id === id ? data : el)));
-        });
+        api.setLike(id, isLike)
+            .then((data) => {
+                setProducts((state) => state.map((el) => (el._id === id ? data : el)));
+                if (isLike) {
+                    setFavorite((state) => state?.filter((el) => el._id !== data._id));
+                } else {
+                    setFavorite((state) => [...state, data]);
+                }
+                dispatch(updateProductsInLocalLike(data));
+            })
+            .catch((err) => console.log(err));
     };
 
     return (
