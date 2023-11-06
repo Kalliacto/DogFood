@@ -1,11 +1,9 @@
 import { createAsyncThunk, createSlice, isPending, isRejected } from '@reduxjs/toolkit';
 import { getNews, getNewsLenta } from '../../utils/api';
 
-const news = sessionStorage.getItem('dogs-news')
-    ? JSON.parse(sessionStorage.getItem('dogs-news'))
-    : [];
-const newsLenta = sessionStorage.getItem('dogs-newsLenta')
-    ? JSON.parse(sessionStorage.getItem('dogs-newsLenta'))
+const news = localStorage.getItem('dogs-news') ? JSON.parse(localStorage.getItem('dogs-news')) : [];
+const newsLenta = localStorage.getItem('dogs-newsLenta')
+    ? JSON.parse(localStorage.getItem('dogs-newsLenta'))
     : [];
 
 const initialState = {
@@ -55,13 +53,12 @@ const newsSlice = createSlice({
         builder.addCase(getAllNews.fulfilled, (state, { payload }) => {
             state.isLoading = false;
             state.news = payload.articles?.filter((el) => el.source.name === 'Techinsider.ru');
-
-            sessionStorage.setItem('dogs-news', JSON.stringify(state.news));
+            localStorage.setItem('dogs-news', JSON.stringify(state.news));
         });
         builder.addCase(getAllNewsLenta.fulfilled, (state, { payload }) => {
             state.isLoading = false;
             state.newsLenta = payload.articles;
-            sessionStorage.setItem('dogs-newsLenta', JSON.stringify(state.newsLenta));
+            localStorage.setItem('dogs-newsLenta', JSON.stringify(state.newsLenta));
         });
 
         builder.addMatcher(isPending(getAllNews), (state, action) => {
