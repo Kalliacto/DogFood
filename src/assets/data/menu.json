@@ -55,7 +55,7 @@
         {
             "path": "/products/favorites",
             "imgType": "icon",
-            "imgPath": "lni lni-heart-fill heart",
+            "imgPath": "lni lni-heart heart",
             "visibility": "user"
         },
         {

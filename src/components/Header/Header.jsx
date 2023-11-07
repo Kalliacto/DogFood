@@ -15,7 +15,7 @@ const Header = (props) => {
         <header className='header'>
             <Layout>
                 <Logo />
-                <Search />
+                <Search type='main' />
                 {screenWidth < 1064 ? (
                     <>
                         <button
