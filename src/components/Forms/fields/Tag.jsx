@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import '../Form.css';
 
 const Tag = ({ name, label, attr, state }) => {
-    // TODO: сделать другую реализацию тегов,когда изначально это пустая строка, в боди получать строки и их в массив
     const [val, setVal] = useState('');
     const stops = [' ', ',', ';'];
 

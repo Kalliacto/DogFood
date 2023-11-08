@@ -131,7 +131,7 @@ function App() {
                             <Route path='/product/add' element={<AddProduct />} />
                             <Route path='/basket' element={<Basket />} />
                             <Route path='/profile' element={<Profile />} />
-                            <Route path='/provider/:id' element={<Author />} />
+                            <Route path='/author/:id' element={<Author />} />
                             <Route path='/auth' element={<Auth />} />
                             <Route path='/delivery' element={<Delivery />} />
                             <Route path='/about' element={<About />} />

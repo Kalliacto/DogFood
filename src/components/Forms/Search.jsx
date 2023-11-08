@@ -128,7 +128,6 @@ const Search = ({ type = 'single', setSearch, attr, search = '' }) => {
                                     ))}
                                 </div>
                             )}
-                            {/* TODO: Переход на страницу автора */}
                             {!!filterAuthors.length && (
                                 <div className='search__block'>
                                     <h4 className='search__title'>Поставщики</h4>
@@ -138,7 +137,7 @@ const Search = ({ type = 'single', setSearch, attr, search = '' }) => {
                                             key={el._id}
                                             onClick={() => {
                                                 setText('');
-                                                navigate('/');
+                                                navigate(`/author/${el._id}`);
                                             }}
                                         >
                                             {el.name}
@@ -166,7 +165,6 @@ const Search = ({ type = 'single', setSearch, attr, search = '' }) => {
             )}
         </div>
     );
-    // TODO: добавить поиск выдачу if type = 'main'
 };
 
 export default Search;

@@ -12,7 +12,6 @@ import Filters from '../components/Filters/Filters';
 import Empty from '../components/Empty/Empty';
 import Sort from '../components/Sort/Sort';
 
-// TODO: фильтры по цене продумать
 const Products = memo(({ isCat = false }) => {
     const screenWidth = useResize(window.innerWidth);
     const { name } = useParams();

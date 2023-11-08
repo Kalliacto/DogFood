@@ -26,7 +26,6 @@ const Basket = () => {
                     <Layout>
                         <Adds {...addsData[getNumber(addsData.length)]} />
                     </Layout>
-                    {/* TODO: Доработать изменение лайка в просмотренных товарах */}
                     {!!productsInLocal.length && (
                         <Layout mb={2} dt={4} title='Недавно просмотренные'>
                             {productsInLocal
@@ -43,7 +42,6 @@ const Basket = () => {
                     <Layout>
                         <Adds {...addsData[getNumber(addsData.length)]} />
                     </Layout>
-                    {/* TODO: Доработать изменение лайка в просмотренных товарах */}
                     {!!productsInLocal.length && (
                         <Layout mb={2} dt={4} title='Недавно просмотренные'>
                             {productsInLocal

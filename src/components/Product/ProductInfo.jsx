@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import './index.css';
 import { getEndings, changeEnds, checkingEnd, stockAvailability } from '../../utils/utils';
 import UtilsCtx from '../../context/utils';
@@ -84,10 +84,16 @@ const ProductInfo = ({ product, setProduct }) => {
                             )}
                         </td>
                     </tr>
-                    {/* TODO: перейти на страницу автора */}
                     <tr>
                         <th>Поставщик:</th>
-                        <td>ИП {product.author.name}</td>
+                        <td>
+                            <span
+                                className='product__table_link'
+                                onClick={() => navigate(`/author/${product.author._id}`)}
+                            >
+                                ИП {product.author.name}
+                            </span>
+                        </td>
                     </tr>
                 </tbody>
             </table>
