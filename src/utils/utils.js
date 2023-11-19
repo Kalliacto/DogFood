@@ -37,3 +37,7 @@ export const stockAvailability = (num) => {
         return 'Много';
     }
 };
+
+export const findFavorite = (card, id) => {
+    return card.likes.some((i) => i === id);
+};

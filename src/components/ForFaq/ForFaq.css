@@ -1,0 +1,33 @@
+.faq__accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.faq__accordion_item {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.faq__accordion_title {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+.faq__accordion_title:hover {
+    cursor: pointer;
+    color: #ffe44d;
+}
+
+.faq__accordion_content {
+    overflow: hidden;
+    max-height: 0;
+    transition: all 0.5s cubic-bezier(0, 1, 0, 1);
+}
+
+.faq__accordion_content.show {
+    height: auto;
+    max-height: 999px;
+    transition: all 0.5s cubic-bezier(0, 1, 0, 1);
+}

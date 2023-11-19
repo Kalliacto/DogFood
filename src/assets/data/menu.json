@@ -53,6 +53,12 @@
             "visibility": "user"
         },
         {
+            "path": "/products/favorites",
+            "imgType": "icon",
+            "imgPath": "lni lni-heart heart",
+            "visibility": "user"
+        },
+        {
             "path": "/profile",
             "imgType": "icon",
             "imgPath": "lni lni-user",
@@ -94,6 +100,10 @@
         {
             "title": "Доставка и оплата",
             "path": "/delivery"
+        },
+        {
+            "title": "FAQ - Вопросы и ответы",
+            "path": "/faq"
         }
     ],
     "links_1": [

@@ -38,6 +38,11 @@ const Empty = ({ type = 'load' }) => {
             icon: 'users',
             text: 'Тут пока еще нет отзывов',
         },
+        noGoods: {
+            icon: 'sad',
+            title: 'Товаров пока нет',
+            text: 'У данного поставщика отсутствуют товары',
+        },
     };
 
     return (

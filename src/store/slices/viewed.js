@@ -32,6 +32,7 @@ const viewedProductsSlice = createSlice({
             state.productsInLocal = state.productsInLocal.map((el) =>
                 el._id === action.payload._id ? action.payload : el
             );
+            // sessionStorage.setItem('productsInLocal', JSON.stringify(state.productsInLocal)); Есть смысл сохранять только в localStorage
         },
     },
     extraReducers: (builder) => {},

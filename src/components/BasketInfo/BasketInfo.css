@@ -1,0 +1,128 @@
+.basket__content-wrap {
+    display: grid;
+    grid-template-columns: 4fr 1.5fr;
+    gap: 60px;
+    margin: 5rem 0;
+}
+.basket__content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.basket__item {
+    padding: 10px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr 1fr 1fr;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid gray;
+}
+.basket__item-img {
+    width: 62px;
+    height: 62px;
+    margin-right: 16px;
+}
+.basket__item-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.basket__item-trash {
+    margin-left: 50px;
+    cursor: pointer;
+}
+.basket__result {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.02), 0px 2px 16px rgba(96, 97, 112, 0.16);
+    border-radius: 20px;
+    height: fit-content;
+}
+.basket__result-btn {
+    width: 100%;
+    border-radius: 55px;
+    padding: 10px 18px;
+    background-color: #ffd657;
+    border: none;
+    color: #1a1a1a;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.basket__result-btn:hover {
+    background-color: #ddac18;
+}
+.basket__result-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.basket__result-info-list {
+    display: flex;
+    justify-content: space-between;
+}
+.basket__item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.basket__price-one {
+    display: flex;
+    gap: 5px;
+    align-items: baseline;
+}
+
+.small {
+    font-size: 14px;
+    color: gray;
+}
+.basket__price {
+    display: flex;
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 32px;
+    justify-content: space-evenly;
+}
+@media (max-width: 900px) {
+    .product__price {
+        font-size: 20px;
+    }
+    .product__counter_btns {
+        width: 90px;
+        height: 38px;
+    }
+
+    .basket__content-wrap {
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 40px;
+    }
+    .basket__content {
+        gap: 10px;
+    }
+    .basket__item {
+        grid-template-columns: 1fr 2fr 1fr;
+    }
+    .basket__item-img {
+        width: 62px;
+        height: 62px;
+        margin-right: 16px;
+    }
+    .basket__item-trash {
+        margin-left: 20px;
+    }
+}
+
+@media (max-width: 620px) {
+    .product__price {
+        font-size: 16px;
+        gap: 10px;
+    }
+}

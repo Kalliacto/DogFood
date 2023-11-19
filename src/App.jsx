@@ -31,6 +31,7 @@ import { Context } from './context/context';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Utils, { initialValue as utilsValue } from './context/utils';
+import { findFavorite } from './utils/utils';
 
 function App() {
     const { news, newsLenta } = useSelector((s) => s.news);
@@ -39,6 +40,7 @@ function App() {
     const [api, setApi] = useState(new Api(token));
     const dispatch = useDispatch();
     const [products, setProducts] = useState([]);
+    const [favorite, setFavorite] = useState([]);
 
     useEffect(() => {
         setApi(new Api(token));
@@ -73,9 +75,11 @@ function App() {
                 arr = utilsValue.filterProducts(arr).byId(blackList.goods, false).data;
 
                 setProducts(arr);
+                setFavorite(arr.filter((item) => findFavorite(item, userId)));
             });
         } else {
             setProducts([]);
+            setFavorite([]);
         }
     }, [api]);
 
@@ -105,6 +109,8 @@ function App() {
         setUserId,
         products,
         setProducts,
+        favorite,
+        setFavorite,
     };
 
     return (
@@ -125,7 +131,7 @@ function App() {
                             <Route path='/product/add' element={<AddProduct />} />
                             <Route path='/basket' element={<Basket />} />
                             <Route path='/profile' element={<Profile />} />
-                            <Route path='/provider/:id' element={<Author />} />
+                            <Route path='/author/:id' element={<Author />} />
                             <Route path='/auth' element={<Auth />} />
                             <Route path='/delivery' element={<Delivery />} />
                             <Route path='/about' element={<About />} />

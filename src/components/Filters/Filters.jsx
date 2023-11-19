@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import './Filters.css';
 import UtilCtx from '../../context/utils';
 import { Input, Search, Switch } from '../Forms/Form';
+import { useNavigate } from 'react-router';
 
 const Filters = ({ goods, filterGoods, setFilterGoods }) => {
     const { filterProducts, getUniqueTag, getUniqueAuthors, setPrice } = useContext(UtilCtx);
@@ -18,6 +19,7 @@ const Filters = ({ goods, filterGoods, setFilterGoods }) => {
     const [filterDiscount, setFilterDiscount] = useState(false);
     const [filterReviews, setFilterReviews] = useState(false);
     const [filterLikes, setFilterLikes] = useState(false);
+    const navigate = useNavigate();
 
     const tagsHandler = (tag) => {
         setFilterTags((state) =>
@@ -205,7 +207,14 @@ const Filters = ({ goods, filterGoods, setFilterGoods }) => {
                                     }`}
                                     onClick={() => authorsHandler(el._id)}
                                 >
-                                    {el.name}
+                                    <span>{el.name}</span>
+                                    <i
+                                        className='filter__icon lni lni-enter'
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            navigate(`/author/${el._id}`);
+                                        }}
+                                    />
                                 </li>
                             );
                         })}

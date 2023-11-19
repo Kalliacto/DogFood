@@ -243,7 +243,7 @@ export const initialValue = {
         }
         return stars;
     },
-    setCntWord: (n, w0 = 'отзывов', w1 = 'отзыв', w2 = 'отзыва') => {
+    setCntWord: (n, w0 = 'товаров', w1 = 'товар', w2 = 'товара') => {
         if (n % 100 < 11 || n % 100 > 14) {
             if (n % 10 === 1) {
                 return w1;

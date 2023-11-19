@@ -38,6 +38,9 @@
 .filter__content_line {
     opacity: 0.8;
     cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .filter__content_line:hover {
@@ -51,4 +54,13 @@
 .filter__btn {
     border-radius: 1rem;
     background-color: #ffd657;
+}
+
+.filter__icon {
+    opacity: 0.6;
+}
+
+.filter__icon:hover {
+    cursor: pointer;
+    opacity: 1;
 }

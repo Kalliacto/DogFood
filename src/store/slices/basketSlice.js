@@ -50,6 +50,10 @@ const basketSlice = createSlice({
             );
             localStorage.setItem('basketDF', JSON.stringify(state.basketProducts));
         },
+        orderProducts: (state, action) => {
+            state.basketProducts = [];
+            localStorage.removeItem('basketDF');
+        },
     },
     extraReducers: (builder) => {},
 });
@@ -59,5 +63,6 @@ export const {
     removeBasketProduct,
     deleteProductFromBasket,
     updateBasketProducts,
+    orderProducts,
 } = basketSlice.actions;
 export default basketSlice.reducer;
